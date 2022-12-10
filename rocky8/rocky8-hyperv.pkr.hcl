@@ -24,6 +24,7 @@ source "hyperv-iso" "rocky8-minimal" {
         "<up><tab><wait>",
         " fips=1 inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/anaconda-ks.cfg<wait><enter>"
     ]
+    output_directory    = "${path.root}/box"
 }
 
 build {
@@ -37,6 +38,14 @@ build {
             "chmod -R go-rwX /home/vagrant/.ssh",
             "echo \"vagrant ALL=(ALL) NOPASSWD: ALL\" >/etc/sudoers.d/vagrant",
             "chmod 640 /etc/sudoers.d/vagrant"
+        ]
+    }
+
+    post-processor "shell-local" {
+        inline = [
+            "cp ${path.root}/metadata.json ${path.root}/box",
+            "tar -C ${path.root}/box -czvf ${path.root}/${build.name}.box .",
+            "vagrant box add --name hoboproject/${build.name} ${build.name}.box"
         ]
     }
 }
