@@ -2,4 +2,4 @@ packer_cache
 *.iso
 output-*
 .vagrant
-.box
+*.box
