@@ -1,9 +1,10 @@
 source "virtualbox-iso" "rockylinux8" {
     guest_os_type    = "RedHat8_64"
-    iso_url          = "${path.root}/Rocky-8.8-x86_64-boot.iso"
+    iso_url          = "https://download.rockylinux.org/pub/rocky/8/isos/x86_64/Rocky-8.8-x86_64-boot.iso"
     iso_checksum     = "96c9d96c33ebacc8e909dcf8abf067b6bb30588c0c940a9c21bb9b83f3c99868"
-    memory           = 2048
-    disk_size        = 32768
+    cpus             = var.box_cpus
+    memory           = var.box_memory
+    disk_size        = var.box_disk_size
     ssh_username     = "vagrant"
     ssh_password     = "vagrant"
     ssh_timeout      = "30m"
@@ -12,17 +13,19 @@ source "virtualbox-iso" "rockylinux8" {
     boot_command     = [
         "<up><tab>",
         " fips=1",
-        " inst.ks=http://192.168.68.113:{{ .HTTPPort }}/ks-rockylinux8.cfg",
+        " inst.ks=${var.packer_http_ip}:{{ .HTTPPort }}/ks-rockylinux8.cfg",
         "<enter>"
     ]
+    headless         = true
 }
 
 source "virtualbox-iso" "rockylinux9" {
     guest_os_type    = "RedHat9_64"
-    iso_url          = "${path.root}/Rocky-9.2-x86_64-boot.iso"
+    iso_url          = "https://download.rockylinux.org/pub/rocky/9/isos/x86_64/Rocky-9.2-x86_64-boot.iso"
     iso_checksum     = "11e42da96a7b336de04e60d05e54a22999c4d7f3e92c19ebf31f9c71298f5b42"
-    memory           = 2048
-    disk_size        = 32768
+    cpus             = var.box_cpus
+    memory           = var.box_memory
+    disk_size        = var.box_disk_size
     ssh_username     = "vagrant"
     ssh_password     = "vagrant"
     ssh_timeout      = "30m"
@@ -31,9 +34,10 @@ source "virtualbox-iso" "rockylinux9" {
     boot_command     = [
         "<up><tab>",
         " fips=1",
-        " inst.ks=http://192.168.68.113:{{ .HTTPPort }}/ks-rockylinux9.cfg",
+        " inst.ks=${var.packer_http_ip}:{{ .HTTPPort }}/ks-rockylinux9.cfg",
         "<enter>"
     ]
+    headless = true
 }
 
 build {
