@@ -49,7 +49,9 @@ source "virtualbox-iso" "rockylinux8" {
     boot_command     = [
         "<up><tab>",
         " fips=1",
-        " inst.ks=${var.packer_http_ip}:{{ .HTTPPort }}/ks-rockylinux8.cfg",
+        // " ip=dhcp",
+        // " inst.waitfornet=30",
+        " inst.ks=http://${var.packer_http_ip}:{{ .HTTPPort }}/ks-rockylinux8.cfg",
         "<enter>"
     ]
     headless         = var.packer_headless
@@ -71,7 +73,7 @@ source "virtualbox-iso" "rockylinux9" {
     boot_command     = [
         "<up><tab>",
         " fips=1",
-        " inst.ks=${var.packer_http_ip}:{{ .HTTPPort }}/ks-rockylinux9.cfg",
+        " inst.ks=http://${var.packer_http_ip}:{{ .HTTPPort }}/ks-rockylinux9.cfg",
         "<enter>"
     ]
     headless = var.packer_headless
@@ -111,16 +113,19 @@ source "virtualbox-iso" "ubuntu22lts" {
     ssh_password     = "vagrant"
     ssh_timeout      = "30m"
     shutdown_command = "sudo -S systemctl poweroff"
-    cd_files         = [
-        "${path.root}/meta-data",
-        "${path.root}/user-data"
-    ]
-    cd_label         = "cidata"
+    // cd_files         = [
+    //     "${path.root}/meta-data",
+    //     "${path.root}/user-data"
+    // ]
+    // cd_label         = "cidata"
+    http_directory   = "${path.root}"
     boot_wait        = "5s"
     boot_command     = [
-        "e<down><down><down><end>",
-        " autoinstall ds=noclous",
-        "<F10>"   
+        "c",
+        "linux /casper/vmlinuz --- autoinstall ds='nocloud-net;s=http://${var.packer_http_ip}:{{ .HTTPPort }}/'",
+        "<enter><wait>",
+        "initrd /casper/initrd<enter><wait>",
+        "boot<enter>"   
     ]
     headless         = var.packer_headless
 }
