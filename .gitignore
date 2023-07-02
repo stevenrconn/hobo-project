@@ -5,3 +5,4 @@ output-*
 *.box
 tmp
 Vagrantfile
+boxes
