@@ -3,5 +3,14 @@ autoinstall:
   version: 1
   identity:
     hostname: ubuntu-server
-    password: "$6$exDY1mhS4KUYCE/2$zmn9ToZwTKLhCw.b4/b.ZRTIZM30JZ4QrOQ2aOXJ8yk96xpcCof0kxKwuX1kqLG/ygbJ1f8wxED22bTL4F46P0"
-    username: ubuntu
+    password: "$6$7Y4Ugp8/D6wTyxlg$NOwBaqD32mn5Ljvb/saZgIfdY72uARisI3Zm1x.4X2xmQBlXzUcWeLm5VryojX8.Qs5xB6asOIGkyFoXCSSRm1"
+    username: vagrant
+  locale: en_US.UTF-8
+  refresh-installer:
+    update: yes
+  updates: all
+  ssh:
+    install-server: yes
+    allow-pw: yes
+  late-commands:
+    - "echo 'vagrant ALL=(ALL:ALL) NOPASSWD: ALL' >/target/etc/sudoers.d/vagrant"

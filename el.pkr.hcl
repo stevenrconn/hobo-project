@@ -8,7 +8,7 @@ source "virtualbox-iso" "rockylinux8" {
     ssh_username     = "vagrant"
     ssh_password     = "vagrant"
     ssh_timeout      = "30m"
-    shutdown_command = "sudo systemctl poweroff"
+    shutdown_command = "sudo -S systemctl poweroff"
     http_directory   = "${path.root}"
     boot_command     = [
         "<up><tab>",
@@ -16,7 +16,7 @@ source "virtualbox-iso" "rockylinux8" {
         " inst.ks=${var.packer_http_ip}:{{ .HTTPPort }}/ks-rockylinux8.cfg",
         "<enter>"
     ]
-    headless         = true
+    headless         = var.packer_headless
 }
 
 source "virtualbox-iso" "rockylinux9" {
@@ -29,7 +29,7 @@ source "virtualbox-iso" "rockylinux9" {
     ssh_username     = "vagrant"
     ssh_password     = "vagrant"
     ssh_timeout      = "30m"
-    shutdown_command = "sudo systemctl poweroff"
+    shutdown_command = "sudo -S systemctl poweroff"
     http_directory   = "${path.root}"
     boot_command     = [
         "<up><tab>",
@@ -37,7 +37,7 @@ source "virtualbox-iso" "rockylinux9" {
         " inst.ks=${var.packer_http_ip}:{{ .HTTPPort }}/ks-rockylinux9.cfg",
         "<enter>"
     ]
-    headless = true
+    headless = var.packer_headless
 }
 
 build {
@@ -48,17 +48,15 @@ build {
 
     provisioner "shell" {
         execute_command = "sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
-        expect_disconnect = true
         inline = [
             "set -o xtrace",
-            "dnf --assumeyes update",
-            "dnf --assumeyes clean all",
-            "systemctl reboot"
+            "hostnamectl set-hostname ${source.name}",
+            "mkdir --parents /home/vagrant/.ssh",
+            "echo \"${var.vagrant_ssh_pubkey}\" >> /home/vagrant/.ssh/authorized_keys",
+            "chown -R vagrant:vagrant /home/vagrant/.ssh",
+            "chmod -R go-rwX /home/vagrant/.ssh"
         ]
     }
 
-    // Generate Vagrant box
-    post-processor "vagrant" {
-
-    }
+    post-processor "vagrant" {}
 }
