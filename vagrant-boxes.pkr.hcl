@@ -23,6 +23,10 @@ variable "box_disk_size" {
     default = 32768
 }
 
+variable "box_nic_type" {
+    type = string
+}
+
 variable "vagrant_ssh_pubkey" {
     type = string
     sensitive = true
@@ -36,6 +40,7 @@ source "virtualbox-iso" "rockylinux8" {
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
+    nic_type         = "${var.box_nic_type}" 
     ssh_username     = "vagrant"
     ssh_password     = "vagrant"
     ssh_timeout      = "30m"
@@ -57,6 +62,7 @@ source "virtualbox-iso" "rockylinux9" {
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
+    nic_type         = "${var.box_nic_type}" 
     ssh_username     = "vagrant"
     ssh_password     = "vagrant"
     ssh_timeout      = "30m"
@@ -78,6 +84,7 @@ source "virtualbox-iso" "ubuntu20lts" {
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
+    nic_type         = "${var.box_nic_type}" 
     ssh_username     = "vagrant"
     ssh_password     = "vagrant"
     ssh_timeout      = "30m"
@@ -99,6 +106,7 @@ source "virtualbox-iso" "ubuntu22lts" {
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
+    nic_type         = "${var.box_nic_type}" 
     ssh_username     = "vagrant"
     ssh_password     = "vagrant"
     ssh_timeout      = "30m"
@@ -121,7 +129,9 @@ source "virtualbox-iso" "ubuntu22lts" {
 build {
     sources = [ 
         "source.virtualbox-iso.rockylinux8",
-        "source.virtualbox-iso.rockylinux9" 
+        "source.virtualbox-iso.rockylinux9",
+        "source.virtualbox-iso.ubuntu20lts",
+        "source.virtualbox-iso.ubuntu22lts"
     ]
 
     provisioner "shell" {
