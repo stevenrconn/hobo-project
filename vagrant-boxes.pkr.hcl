@@ -113,11 +113,6 @@ source "virtualbox-iso" "ubuntu22lts" {
     ssh_password     = "vagrant"
     ssh_timeout      = "30m"
     shutdown_command = "sudo -S systemctl poweroff"
-    // cd_files         = [
-    //     "${path.root}/meta-data",
-    //     "${path.root}/user-data"
-    // ]
-    // cd_label         = "cidata"
     http_directory   = "${path.root}"
     boot_wait        = "5s"
     boot_command     = [
@@ -151,5 +146,7 @@ build {
         ]
     }
 
-    post-processor "vagrant" {}
+    post-processor "vagrant" {
+        output = "${path.root}/boxes/{{ .BuildName }}-{{ .Provider }}.box"
+    }
 }
