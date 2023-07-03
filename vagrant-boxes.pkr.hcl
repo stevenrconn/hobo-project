@@ -32,11 +32,18 @@ variable "vagrant_ssh_pubkey" {
     sensitive = true
 }
 
+variable "iso" {
+    type = map(object({
+        url = string
+        checksum = string
+    }))
+}
+
 
 source "virtualbox-iso" "rockylinux8" {
     guest_os_type    = "RedHat8_64"
-    iso_url          = "https://download.rockylinux.org/pub/rocky/8/isos/x86_64/Rocky-x86_64-boot.iso"
-    iso_checksum     = "96c9d96c33ebacc8e909dcf8abf067b6bb30588c0c940a9c21bb9b83f3c99868"
+    iso_url          = "${var.iso.rockylinux8.url}"
+    iso_checksum     = "${var.iso.rockylinux8.checksum}"
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
@@ -57,8 +64,8 @@ source "virtualbox-iso" "rockylinux8" {
 
 source "virtualbox-iso" "rockylinux9" {
     guest_os_type    = "RedHat9_64"
-    iso_url          = "https://download.rockylinux.org/pub/rocky/9/isos/x86_64/Rocky-x86_64-boot.iso"
-    iso_checksum     = "11e42da96a7b336de04e60d05e54a22999c4d7f3e92c19ebf31f9c71298f5b42"
+    iso_url          = "${var.iso.rockylinux9.url}"
+    iso_checksum     = "${var.iso.rockylinux9.checksum}"
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
@@ -79,8 +86,8 @@ source "virtualbox-iso" "rockylinux9" {
 
 source "virtualbox-iso" "ubuntu20lts" {
     guest_os_type    = "Ubuntu20_LTS_64"
-    iso_url          = "https://releases.ubuntu.com/20.04.6/ubuntu-20.04.6-live-server-amd64.iso"
-    iso_checksum     = "b8f31413336b9393ad5d8ef0282717b2ab19f007df2e9ed5196c13d8f9153c8b"
+    iso_url          = "${var.iso.ubuntu20lts.url}"
+    iso_checksum     = "${var.iso.ubuntu20lts.checksum}"
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
@@ -101,8 +108,8 @@ source "virtualbox-iso" "ubuntu20lts" {
 
 source "virtualbox-iso" "ubuntu22lts" {
     guest_os_type    = "Ubuntu22_LTS_64"
-    iso_url          = "https://mirrors.tripadvisor.com/releases/22.04.2/ubuntu-22.04.2-live-server-amd64.iso"
-    iso_checksum     = "5e38b55d57d94ff029719342357325ed3bda38fa80054f9330dc789cd2d43931"
+    iso_url          = "${var.iso.ubuntu22lts.url}"
+    iso_checksum     = "${var.iso.ubuntu22lts.checksum}"
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
