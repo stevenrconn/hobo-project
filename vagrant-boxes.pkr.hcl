@@ -1,4 +1,4 @@
-variable "packer_http_ip" {
+variable "packer_httpip" {
     type = string
     default = "{{ .HTTPIP }}"
 }
@@ -30,6 +30,12 @@ variable "box_nic_type" {
 variable "vagrant_ssh_pubkey" {
     type = string
     sensitive = true
+    default = "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA6NF8iallvQVp22WDkTkyrtvp9eWW6A8YVr+kz4TjGYe7gHzIw+niNltGEFHzD8+v1I2YJ6oXevct1YeS0o9HZyN1Q9qgCgzUFtdOKLv6IedplqoPkcmF0aYet2PkEDo3MlTBckFXPITAMzF8dJSIFo9D8HfdOV0IAdx4O7PtixWKn5y2hMNG0zQPyUecp4pzC6kivAIhyfHilFR61RGL+GPXQ2MWZWFYbAGjyiYJnAmCP3NOTd0jMZEnDkbUvxhMmBYSdETk1rRgm+R4LOzFUGaHqHDLKLX+FIPKcF96hrucXzcWyLbIbEgE98OHlnVYCzRdK8jlqm8tehUc9c9WhQ=="
+}
+
+variable "vagrant_cloud_token" {
+    type = string
+    sensitive = true
 }
 
 variable "iso" {
@@ -56,7 +62,7 @@ source "virtualbox-iso" "rockylinux8" {
     boot_command     = [
         "<up><tab>",
         " fips=1",
-        " inst.ks=http://${var.packer_http_ip}:{{ .HTTPPort }}/ks-rockylinux8.cfg",
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-rockylinux8.cfg",
         "<enter>"
     ]
     headless         = var.packer_headless
@@ -78,16 +84,16 @@ source "virtualbox-iso" "rockylinux9" {
     boot_command     = [
         "<up><tab>",
         " fips=1",
-        " inst.ks=http://${var.packer_http_ip}:{{ .HTTPPort }}/ks-rockylinux9.cfg",
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-rockylinux9.cfg",
         "<enter>"
     ]
     headless = var.packer_headless
 }
 
-source "virtualbox-iso" "ubuntu20lts" {
+source "virtualbox-iso" "ubuntu-focal" {
     guest_os_type    = "Ubuntu20_LTS_64"
-    iso_url          = "${var.iso.ubuntu20lts.url}"
-    iso_checksum     = "${var.iso.ubuntu20lts.checksum}"
+    iso_url          = "${var.iso.ubuntu-focal.url}"
+    iso_checksum     = "${var.iso.ubuntu-focal.checksum}"
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
@@ -100,16 +106,16 @@ source "virtualbox-iso" "ubuntu20lts" {
     boot_wait        = "5s"
     boot_command     = [
         "<enter><enter><f6><esc><wait> ",
-        "autoinstall ds=nocloud-net;s=http://${var.packer_http_ip}:{{ .HTTPPort }}/",
+        "autoinstall ds=nocloud-net;s=http://${var.packer_httpip}:{{ .HTTPPort }}/",
         "<enter>"   
     ]
     headless         = var.packer_headless
 }
 
-source "virtualbox-iso" "ubuntu22lts" {
+source "virtualbox-iso" "ubuntu-jammy" {
     guest_os_type    = "Ubuntu22_LTS_64"
-    iso_url          = "${var.iso.ubuntu22lts.url}"
-    iso_checksum     = "${var.iso.ubuntu22lts.checksum}"
+    iso_url          = "${var.iso.ubuntu-jammy.url}"
+    iso_checksum     = "${var.iso.ubuntu-jammy.checksum}"
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
@@ -122,7 +128,7 @@ source "virtualbox-iso" "ubuntu22lts" {
     boot_wait        = "5s"
     boot_command     = [
         "c",
-        "linux /casper/vmlinuz --- autoinstall ds='nocloud-net;s=http://${var.packer_http_ip}:{{ .HTTPPort }}/'",
+        "linux /casper/vmlinuz --- autoinstall ds='nocloud-net;s=http://${var.packer_httpip}:{{ .HTTPPort }}/'",
         "<enter><wait>",
         "initrd /casper/initrd<enter><wait>",
         "boot<enter>"   
@@ -135,8 +141,8 @@ build {
     sources = [ 
         "source.virtualbox-iso.rockylinux8",
         "source.virtualbox-iso.rockylinux9",
-        "source.virtualbox-iso.ubuntu20lts",
-        "source.virtualbox-iso.ubuntu22lts"
+        "source.virtualbox-iso.ubuntu-focal",
+        "source.virtualbox-iso.ubuntu-jammy"
     ]
 
     provisioner "shell" {
@@ -151,7 +157,15 @@ build {
         ]
     }
 
-    post-processor "vagrant" {
-        output = "${path.root}/boxes/{{ .BuildName }}-{{ .Provider }}.box"
+    post-processors {
+        post-processor "vagrant" {
+            output = "${path.root}/boxes/{{ .BuildName }}-{{ .Provider }}.box"
+        }
+
+        post-processor "vagrant-cloud" {
+            box_tag = "stevenrconn/${source.name}-minimal"
+            version = "1.0.0"
+            access_token = "${var.vagrant_cloud_token}"
+        }
     }
 }
