@@ -24,7 +24,7 @@ iso = {
         url = "https://releases.ubuntu.com/20.04.6/ubuntu-20.04.6-live-server-amd64.iso",
         checksum = "b8f31413336b9393ad5d8ef0282717b2ab19f007df2e9ed5196c13d8f9153c8b"
     },
-    ubuntu22-jammy = {
+    ubuntu-jammy = {
         url = "https://releases.ubuntu.com/releases/22.04.2/ubuntu-22.04.2-live-server-amd64.iso",
         checksum = "5e38b55d57d94ff029719342357325ed3bda38fa80054f9330dc789cd2d43931"
     },
