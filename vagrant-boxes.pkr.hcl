@@ -46,25 +46,6 @@ variable "iso" {
 }
 
 
-source "vmware-iso" "rockylinux8" {
-    iso_url          = "${var.iso.rockylinux8.url}"
-    iso_checksum     = "${var.iso.rockylinux8.checksum}"
-    cpus             = var.box_cpus
-    memory           = var.box_memory
-    disk_size        = var.box_disk_size
-    ssh_username     = "vagrant"
-    ssh_password     = "vagrant"
-    ssh_timeout      = "30m"
-    shutdown_command = "sudo -S systemctl poweroff"
-    http_directory   = "${path.root}"
-    boot_command     = [
-        "<up><tab>",
-        " fips=1",
-        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-rockylinux8.cfg",
-        "<enter>"
-    ]
-}
-
 source "virtualbox-iso" "rockylinux8" {
     guest_os_type    = "RedHat8_64"
     iso_url          = "${var.iso.rockylinux8.url}"
@@ -159,7 +140,6 @@ source "virtualbox-iso" "ubuntu-jammy" {
 build {
     sources = [ 
         "source.virtualbox-iso.rockylinux8",
-        "source.vmware-iso.rockylinux8",
         "source.virtualbox-iso.rockylinux9",
         "source.virtualbox-iso.ubuntu-focal",
         "source.virtualbox-iso.ubuntu-jammy"
