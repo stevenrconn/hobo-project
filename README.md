@@ -1,2 +1,2 @@
 # hobo-project
-Minimal box builds for Vagrant
+## Minimal FIPS-enabled EL box builds for Vagrant
