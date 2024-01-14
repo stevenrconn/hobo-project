@@ -1,10 +1,14 @@
 packer {
-  required_plugins {
-    vagrant = {
-      source  = "github.com/hashicorp/vagrant"
-      version = "~> 1"
+    required_plugins {
+        vagrant = {
+            source  = "github.com/hashicorp/vagrant"
+            version = "~> 1"
+        }
+        virtualbox = {
+            source  = "github.com/hashicorp/virtualbox"
+            version = "~> 1" 
+        }
     }
-  }
 }
 
 
@@ -55,6 +59,58 @@ variable "iso" {
     }))
 }
 
+
+source "virtualbox-iso" "debian-bullseye" {
+    guest_os_type    = "Debian11_64"
+    iso_url          = "${var.iso.debian-bullseye.url}"
+    iso_checksum     = "${var.iso.debian-bullseye.checksum}"
+    cpus             = var.box_cpus
+    memory           = var.box_memory
+    disk_size        = var.box_disk_size
+    nic_type         = "${var.box_nic_type}" 
+    ssh_username     = "vagrant"
+    ssh_password     = "vagrant"
+    ssh_timeout      = "30m"
+    shutdown_command = "sudo -S systemctl poweroff"
+    http_directory   = "${path.root}"
+    boot_command     = [
+        "<esc><wait>",
+        "install vmlinuz<wait>",
+        " initrd=install/initrd.gz<wait>",
+        " auto-install/enable=true<wait>",
+        " debconf/priority=critical<wait>",
+        " preseed/url=http://${var.packer_httpip}:{{ .HTTPPort }}/preseed.cfg<wait>",
+        " -- <wait>",
+        "<enter><wait>"
+    ]
+    headless         = var.packer_headless
+}
+
+source "virtualbox-iso" "debian-bookworm" {
+    guest_os_type    = "Debian12_64"
+    iso_url          = "${var.iso.debian-bookworm.url}"
+    iso_checksum     = "${var.iso.debian-bookworm.checksum}"
+    cpus             = var.box_cpus
+    memory           = var.box_memory
+    disk_size        = var.box_disk_size
+    nic_type         = "${var.box_nic_type}" 
+    ssh_username     = "vagrant"
+    ssh_password     = "vagrant"
+    ssh_timeout      = "30m"
+    shutdown_command = "sudo -S systemctl poweroff"
+    http_directory   = "${path.root}"
+    boot_command     = [
+        "<esc><wait>",
+        "install vmlinuz<wait>",
+        " initrd=install/initrd.gz<wait>",
+        " auto-install/enable=true<wait>",
+        " debconf/priority=critical<wait>",
+        " preseed/url=http://${var.packer_httpip}:{{ .HTTPPort }}/preseed.cfg<wait>",
+        " -- <wait>",
+        "<enter><wait>"
+    ]
+    headless         = var.packer_headless
+}
 
 source "virtualbox-iso" "rockylinux8" {
     guest_os_type    = "RedHat8_64"
@@ -149,6 +205,8 @@ source "virtualbox-iso" "ubuntu-jammy" {
 
 build {
     sources = [ 
+        "source.virtualbox-iso.debian-bullseye",
+        "source.virtualbox-iso.debian-bookworm",
         "source.virtualbox-iso.rockylinux8",
         "source.virtualbox-iso.rockylinux9",
         "source.virtualbox-iso.ubuntu-focal",
@@ -173,11 +231,11 @@ build {
             output = "${path.root}/boxes/{{ .BuildName }}-{{ .Provider }}.box"
         }
 
-        post-processor "vagrant-cloud" {
-            name = "publish"
-            box_tag = "stevenrconn/${source.name}-minimal"
-            version = "1.0.0"
-            access_token = "${var.vagrant_cloud_token}"
-        }
+        // post-processor "vagrant-cloud" {
+        //     name = "publish"
+        //     box_tag = "stevenrconn/${source.name}-minimal"
+        //     version = "1.0.0"
+        //     access_token = "${var.vagrant_cloud_token}"
+        // }
     }
 }

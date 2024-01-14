@@ -4,6 +4,14 @@ box_disk_size      = 32768
 box_nic_type       = "virtio"
 
 iso = {
+    debian-bullseye = {
+        url = "https://get.debian.org/images/archive/11.3.0/amd64/iso-cd/debian-11.3.0-amd64-netinst.iso"
+        checksum = "7892981e1da216e79fb3a1536ce5ebab157afdd20048fe458f2ae34fbc26c19b"
+    },
+    debian-bookworm = {
+        url = "https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-12.4.0-amd64-netinst.iso"
+        checksum = "64d727dd5785ae5fcfd3ae8ffbede5f40cca96f1580aaa2820e8b99dae989d94"
+    },
     redhat8 = {
         url = "",
         checksum = ""
