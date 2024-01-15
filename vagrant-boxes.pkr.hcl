@@ -230,12 +230,5 @@ build {
             name = "box"
             output = "${path.root}/boxes/{{ .BuildName }}-{{ .Provider }}.box"
         }
-
-        // post-processor "vagrant-cloud" {
-        //     name = "publish"
-        //     box_tag = "stevenrconn/${source.name}-minimal"
-        //     version = "1.0.0"
-        //     access_token = "${var.vagrant_cloud_token}"
-        // }
     }
 }
