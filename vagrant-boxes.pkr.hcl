@@ -230,12 +230,16 @@ build {
             name = "box"
             output = "${path.root}/boxes/{{ .BuildName }}-{{ .Provider }}.box"
         }
+        post-processor "manifest" {
+            name = "manifest"
+            output = "${path.root}/${source.name}-${source.type}.json"
+        }
         post-processor "shell-local" {
             name = "deploy"
-            environment_vars = [
-                "NAME=${var.box_name_prefix}{{ .BuildName }}",
-                "BOX=${path.root}/boxes/{{ .BuildName }}-{{ .Provider }}.box"
-            ]
+            env = {
+                MANIFEST = "${path.root}/${source.name}-${source.type}.json"
+                PREFIX = "${var.box_name_prefix}"
+            }
             script = "${path.root}/deploy.sh"
         }
     }

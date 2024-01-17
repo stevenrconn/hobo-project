@@ -1,0 +1,61 @@
+{
+  "builds": [
+    {
+      "name": "debian-bookworm",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1705491146,
+      "files": [
+        {
+          "name": "./boxes/debian-bookworm-virtualbox.box",
+          "size": 1524736732
+        }
+      ],
+      "artifact_id": "virtualbox",
+      "packer_run_uuid": "29a542d2-76ee-9918-0259-643e1cc20705",
+      "custom_data": null
+    },
+    {
+      "name": "debian-bookworm",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1705491923,
+      "files": [
+        {
+          "name": "./boxes/debian-bookworm-virtualbox.box",
+          "size": 1571006220
+        }
+      ],
+      "artifact_id": "virtualbox",
+      "packer_run_uuid": "b14fde10-b599-9b9c-970c-1c048e6dba62",
+      "custom_data": null
+    },
+    {
+      "name": "debian-bookworm",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1705493905,
+      "files": [
+        {
+          "name": "./boxes/debian-bookworm-virtualbox.box",
+          "size": 1538221844
+        }
+      ],
+      "artifact_id": "virtualbox",
+      "packer_run_uuid": "3e5d7fe7-de73-65be-787d-ddffccb00f01",
+      "custom_data": null
+    },
+    {
+      "name": "debian-bookworm",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1705497059,
+      "files": [
+        {
+          "name": "./boxes/debian-bookworm-virtualbox.box",
+          "size": 1568932122
+        }
+      ],
+      "artifact_id": "virtualbox",
+      "packer_run_uuid": "fb9e4549-d542-4b3f-caaa-30b7272cfb1b",
+      "custom_data": null
+    }
+  ],
+  "last_run_uuid": "fb9e4549-d542-4b3f-caaa-30b7272cfb1b"
+}
