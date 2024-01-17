@@ -1,6 +1,0 @@
-{
-    "yaml.schemas": {
-        "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/playbook": "file:///home/mrslip/hobo-project/boxer.yaml"
-    },
-    "ansible.python.interpreterPath": "/home/mrslip/.pyenv/versions/3.11.3/bin/python"
-}
