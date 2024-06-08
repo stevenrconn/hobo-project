@@ -202,6 +202,29 @@ source "virtualbox-iso" "ubuntu-jammy" {
     headless         = var.packer_headless
 }
 
+source "virtualbox-iso" "ubuntu-noble" {
+    guest_os_type    = "Ubuntu24_LTS_64"
+    iso_url          = "${var.iso.ubuntu-noble.url}"
+    iso_checksum     = "${var.iso.ubuntu-noble.checksum}"
+    cpus             = var.box_cpus
+    memory           = var.box_memory
+    disk_size        = var.box_disk_size
+    nic_type         = "${var.box_nic_type}" 
+    ssh_username     = "vagrant"
+    ssh_password     = "vagrant"
+    ssh_timeout      = "30m"
+    shutdown_command = "sudo -S systemctl poweroff"
+    http_directory   = "${path.root}"
+    boot_wait        = "5s"
+    boot_command     = [
+        "c",
+        "linux /casper/vmlinuz --- autoinstall ds='nocloud-net;s=http://${var.packer_httpip}:{{ .HTTPPort }}/'",
+        "<enter><wait>",
+        "initrd /casper/initrd<enter><wait>",
+        "boot<enter>"   
+    ]
+    headless         = var.packer_headless
+}
 
 build {
     sources = [ 
@@ -210,7 +233,8 @@ build {
         "source.virtualbox-iso.rockylinux8",
         "source.virtualbox-iso.rockylinux9",
         "source.virtualbox-iso.ubuntu-focal",
-        "source.virtualbox-iso.ubuntu-jammy"
+        "source.virtualbox-iso.ubuntu-jammy",
+        "source.virtualbox-iso.ubuntu-noble"
     ]
 
     provisioner "shell" {
