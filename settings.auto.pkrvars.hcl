@@ -34,11 +34,11 @@ iso = {
         checksum = "b8f31413336b9393ad5d8ef0282717b2ab19f007df2e9ed5196c13d8f9153c8b"
     },
     ubuntu-jammy = {
-        url = "https://releases.ubuntu.com/releases/22.04.3/ubuntu-22.04.3-live-server-amd64.iso",
-        checksum = "a4acfda10b18da50e2ec50ccaf860d7f20b389df8765611142305c0e911d16fd"
+        url = "https://releases.ubuntu.com/releases/22.04.4/ubuntu-22.04.4-live-server-amd64.iso",
+        checksum = "45f873de9f8cb637345d6e66a583762730bbea30277ef7b32c9c3bd6700a32b2"
     },
-    ubuntu-lunar = {
-        url = "https://releases.ubuntu.com/23.04/ubuntu-23.04-live-server-amd64.iso",
-        checksum = "c7cda48494a6d7d9665964388a3fc9c824b3bef0c9ea3818a1be982bc80d346b"
+    ubuntu-noble = {
+        url = "https://releases.ubuntu.com/24.04/ubuntu-24.04-live-server-amd64.iso",
+        checksum = "8762f7e74e4d64d72fceb5f70682e6b069932deedb4949c6975d0f0fe0a91be3"
     }                
 }
