@@ -1,0 +1,20 @@
+source "parallels-iso" "rockylinux9" {
+    guest_os_type    = "redhat"
+    iso_url          = "${var.iso.rockylinux9.aarch64.url}"
+    iso_checksum     = "${var.iso.rockylinux9.aarch64.checksum}"
+    cpus             = var.box_cpus
+    memory           = var.box_memory
+    disk_size        = var.box_disk_size
+    ssh_username     = "vagrant"
+    ssh_password     = "vagrant"
+    ssh_timeout      = "30m"
+    shutdown_command = "sudo -S systemctl poweroff"
+    http_directory   = "${path.root}"
+    boot_command     = [
+        "<up>e<down><down><end>",
+        " fips=1",
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-rockylinux9.aarch64.cfg",
+        "<f10>"
+    ]
+    parallels_tools_flavor = "lin-arm"
+}
