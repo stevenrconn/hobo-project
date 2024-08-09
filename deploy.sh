@@ -7,5 +7,5 @@ if [[ -f $MANIFEST ]] ; then
         --force \
         --name $PREFIX$(jq --raw-output '.builds[-1].name' $MANIFEST) \
         $(jq --raw-output '.builds[-1].files[-1].name' $MANIFEST)
-    rm --force $MANIFEST
+    rm -f $MANIFEST
 fi
