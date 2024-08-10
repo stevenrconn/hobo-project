@@ -1,6 +1,7 @@
 build {
     sources = [ 
         "source.parallels-iso.rockylinux9",
+        "source.parallels-iso.ubuntu-noble",
         "source.virtualbox-iso.debian-bullseye",
         "source.virtualbox-iso.debian-bookworm",
         "source.virtualbox-iso.rockylinux8",

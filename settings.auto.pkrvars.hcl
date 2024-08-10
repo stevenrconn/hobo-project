@@ -67,8 +67,8 @@ iso = {
     },
     ubuntu-noble = {
         aarch64 = {
-            url = ""
-            checksum = ""
+            url = "https://cdimage.ubuntu.com/releases/24.04/release/ubuntu-24.04-live-server-arm64.iso"
+            checksum = "d2d9986ada3864666e36a57634dfc97d17ad921fa44c56eeaca801e7dab08ad7"
         }
         x86_64 = {
             url = "https://releases.ubuntu.com/24.04/ubuntu-24.04-live-server-amd64.iso"
