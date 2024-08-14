@@ -64,3 +64,22 @@ source "parallels-iso" "ubuntu-noble" {
     ]
     parallels_tools_flavor = "lin-arm"
 }
+
+source "parallels-iso" "fedora40" {
+    iso_url          = "${var.iso.fedora40.aarch64.url}"
+    iso_checksum     = "${var.iso.fedora40.aarch64.checksum}"
+    cpus             = var.box_cpus
+    memory           = var.box_memory
+    disk_size        = var.box_disk_size
+    ssh_username     = "vagrant"
+    ssh_password     = "vagrant"
+    ssh_timeout      = "30m"
+    shutdown_command = "sudo -S systemctl poweroff"
+    http_directory   = "${path.root}"
+    boot_wait        = "15s"
+    boot_command     = [
+        "<up>e<wait><down><down><end>",
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora40.cfg<f10>"   
+    ]
+    parallels_tools_flavor = "lin-arm"
+}

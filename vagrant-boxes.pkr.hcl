@@ -1,5 +1,6 @@
 build {
     sources = [ 
+        "source.parallels-iso.fedora40",
         "source.parallels-iso.rockylinux9",
         "source.parallels-iso.ubuntu-jammy",
         "source.parallels-iso.ubuntu-noble",

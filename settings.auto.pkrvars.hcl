@@ -25,7 +25,16 @@ iso = {
             checksum = "64d727dd5785ae5fcfd3ae8ffbede5f40cca96f1580aaa2820e8b99dae989d94"
         }
     },
-    rockylinux8 = {
+    fedora40 = {
+        aarch64 = {
+            url = "https://download.fedoraproject.org/pub/fedora/linux/releases/40/Server/aarch64/iso/Fedora-Server-netinst-aarch64-40-1.14.iso"
+            checksum = "690731ac6abba81413d97517baa80841cb122d07b296ec3f2935848be45be8fe"
+        }
+        x86_64 = {
+            url = ""
+            checksum = ""
+        }
+    },    rockylinux8 = {
         aarch64 = {
             url = ""
             checksum = ""
