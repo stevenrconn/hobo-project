@@ -1,6 +1,7 @@
 build {
     sources = [ 
         "source.parallels-iso.rockylinux9",
+        "source.parallels-iso.ubuntu-jammy",
         "source.parallels-iso.ubuntu-noble",
         "source.virtualbox-iso.debian-bullseye",
         "source.virtualbox-iso.debian-bookworm",
@@ -20,6 +21,21 @@ build {
             "echo \"${var.vagrant_ssh_pubkey}\" >> /home/vagrant/.ssh/authorized_keys",
             "chown -R vagrant:vagrant /home/vagrant/.ssh",
             "chmod -R go-rwX /home/vagrant/.ssh"
+        ]
+    }
+
+    provisioner "shell" {
+        only = [
+            "parallels-iso.rockylinux9",
+            "parallels-iso.ubuntu-jammy",
+            "parallels-iso.ubuntu-noble"
+        ]
+        execute_command = "sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
+        inline = [
+            "set -o xtrace",
+            "mount -o loop /home/vagrant/prl-tools-lin-arm.iso /mnt",
+            "/mnt/install --install-unattended",
+            "umount /mnt"
         ]
     }
 

@@ -57,8 +57,8 @@ iso = {
     },
     ubuntu-jammy = {
         aarch64 = {
-            url = ""
-            checksum = ""
+            url = "https://cdimage.ubuntu.com/releases/jammy/release/ubuntu-22.04.4-live-server-arm64.iso"
+            checksum = "74b8a9f71288ae0ac79075c2793a0284ef9b9729a3dcf41b693d95d724622b65"
         }
         x86_64 = {
             url = "https://releases.ubuntu.com/releases/22.04.4/ubuntu-22.04.4-live-server-amd64.iso"
