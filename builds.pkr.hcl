@@ -34,7 +34,7 @@ build {
         execute_command = "sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
         inline = [
             "set -o xtrace",
-            "mount -o loop /home/vagrant/prl-tools-lin-arm.iso /mnt",
+            "mount -o loop /home/vagrant/prl-tools.iso /mnt",
             "/mnt/install --install-unattended",
             "umount /mnt"
         ]
