@@ -1,9 +1,16 @@
 build {
     sources = [ 
+        // Parallels sources
         "source.parallels-iso.fedora40",
+        "source.parallels-iso.fedora40-minimal",
+        "source.parallels-iso.rockylinux8",
+        "source.parallels-iso.rockylinux8-minimal",
         "source.parallels-iso.rockylinux9",
+        "source.parallels-iso.rockylinux9-minimal",
         "source.parallels-iso.ubuntu-jammy",
         "source.parallels-iso.ubuntu-noble",
+
+        // VirtualBox sources
         "source.virtualbox-iso.debian-bullseye",
         "source.virtualbox-iso.debian-bookworm",
         "source.virtualbox-iso.rockylinux8",
@@ -27,6 +34,8 @@ build {
 
     provisioner "shell" {
         only = [
+            "parallels-iso.fedora40",
+            "parallels-iso.rockylinux8",
             "parallels-iso.rockylinux9",
             "parallels-iso.ubuntu-jammy",
             "parallels-iso.ubuntu-noble"
