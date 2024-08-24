@@ -1,3 +1,47 @@
+source "parallels-iso" "rockylinux8" {
+    guest_os_type    = "redhat"
+    iso_url          = "${var.iso.rockylinux8.aarch64.url}"
+    iso_checksum     = "${var.iso.rockylinux8.aarch64.checksum}"
+    cpus             = var.box_cpus
+    memory           = var.box_memory
+    disk_size        = var.box_disk_size
+    ssh_username     = "vagrant"
+    ssh_password     = "vagrant"
+    ssh_timeout      = "30m"
+    shutdown_command = "sudo -S systemctl poweroff"
+    http_directory   = "${path.root}"
+    boot_command     = [
+        "<up>e<down><down><end>",
+        " fips=1",
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-rockylinux8.aarch64.cfg",
+        "<f10>"
+    ]
+    parallels_tools_flavor = "lin-arm"
+    parallels_tools_guest_path = "/home/vagrant/prl-tools.iso"
+}
+
+source "parallels-iso" "rockylinux8-minimal" {
+    guest_os_type    = "redhat"
+    iso_url          = "${var.iso.rockylinux8.aarch64.url}"
+    iso_checksum     = "${var.iso.rockylinux8.aarch64.checksum}"
+    cpus             = var.box_cpus
+    memory           = var.box_memory
+    disk_size        = var.box_disk_size
+    ssh_username     = "vagrant"
+    ssh_password     = "vagrant"
+    ssh_timeout      = "30m"
+    shutdown_command = "sudo -S systemctl poweroff"
+    http_directory   = "${path.root}"
+    boot_command     = [
+        "<up>e<down><down><end>",
+        " fips=1",
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-rockylinux8-minimal.aarch64.cfg",
+        "<f10>"
+    ]
+    parallels_tools_flavor = "lin-arm"
+    parallels_tools_guest_path = "/home/vagrant/prl-tools.iso"
+}
+
 source "parallels-iso" "rockylinux9" {
     guest_os_type    = "redhat"
     iso_url          = "${var.iso.rockylinux9.aarch64.url}"
@@ -17,7 +61,7 @@ source "parallels-iso" "rockylinux9" {
         "<f10>"
     ]
     parallels_tools_flavor = "lin-arm"
-    parallel_tools_guest_path = "/home/vagrant/prl-tools.iso"
+    parallels_tools_guest_path = "/home/vagrant/prl-tools.iso"
 }
 
 source "parallels-iso" "rockylinux9-minimal" {
@@ -39,7 +83,47 @@ source "parallels-iso" "rockylinux9-minimal" {
         "<f10>"
     ]
     parallels_tools_flavor = "lin-arm"
-    parallel_tools_guest_path = "/home/vagrant/prl-tools.iso"
+    parallels_tools_guest_path = "/home/vagrant/prl-tools.iso"
+}
+
+source "parallels-iso" "fedora40" {
+    iso_url          = "${var.iso.fedora40.aarch64.url}"
+    iso_checksum     = "${var.iso.fedora40.aarch64.checksum}"
+    cpus             = var.box_cpus
+    memory           = var.box_memory
+    disk_size        = var.box_disk_size
+    ssh_username     = "vagrant"
+    ssh_password     = "vagrant"
+    ssh_timeout      = "30m"
+    shutdown_command = "sudo -S systemctl poweroff"
+    http_directory   = "${path.root}"
+    boot_wait        = "15s"
+    boot_command     = [
+        "<up>e<wait><down><down><end>",
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora40.cfg<f10>"   
+    ]
+    parallels_tools_flavor = "lin-arm"
+    parallels_tools_guest_path = "/home/vagrant/prl-tools.iso"
+}
+
+source "parallels-iso" "fedora40-minimal" {
+    iso_url          = "${var.iso.fedora40.aarch64.url}"
+    iso_checksum     = "${var.iso.fedora40.aarch64.checksum}"
+    cpus             = var.box_cpus
+    memory           = var.box_memory
+    disk_size        = var.box_disk_size
+    ssh_username     = "vagrant"
+    ssh_password     = "vagrant"
+    ssh_timeout      = "30m"
+    shutdown_command = "sudo -S systemctl poweroff"
+    http_directory   = "${path.root}"
+    boot_wait        = "15s"
+    boot_command     = [
+        "<up>e<wait><down><down><end>",
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora40-minimal.cfg<f10>"   
+    ]
+    parallels_tools_flavor = "lin-arm"
+    parallels_tools_guest_path = "/home/vagrant/prl-tools.iso"
 }
 
 source "parallels-iso" "ubuntu-jammy" {
@@ -63,7 +147,7 @@ source "parallels-iso" "ubuntu-jammy" {
         "boot<enter>"   
     ]
     parallels_tools_flavor = "lin-arm"
-    parallel_tools_guest_path = "/home/vagrant/prl-tools.iso"
+    parallels_tools_guest_path = "/home/vagrant/prl-tools.iso"
 }
 
 source "parallels-iso" "ubuntu-noble" {
@@ -87,45 +171,6 @@ source "parallels-iso" "ubuntu-noble" {
         "boot<enter>"   
     ]
     parallels_tools_flavor = "lin-arm"
-    parallel_tools_guest_path = "/home/vagrant/prl-tools.iso"
+    parallels_tools_guest_path = "/home/vagrant/prl-tools.iso"
 }
 
-source "parallels-iso" "fedora40" {
-    iso_url          = "${var.iso.fedora40.aarch64.url}"
-    iso_checksum     = "${var.iso.fedora40.aarch64.checksum}"
-    cpus             = var.box_cpus
-    memory           = var.box_memory
-    disk_size        = var.box_disk_size
-    ssh_username     = "vagrant"
-    ssh_password     = "vagrant"
-    ssh_timeout      = "30m"
-    shutdown_command = "sudo -S systemctl poweroff"
-    http_directory   = "${path.root}"
-    boot_wait        = "15s"
-    boot_command     = [
-        "<up>e<wait><down><down><end>",
-        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora40.cfg<f10>"   
-    ]
-    parallels_tools_flavor = "lin-arm"
-    parallel_tools_guest_path = "/home/vagrant/prl-tools.iso"
-}
-
-source "parallels-iso" "fedora40-minimal" {
-    iso_url          = "${var.iso.fedora40.aarch64.url}"
-    iso_checksum     = "${var.iso.fedora40.aarch64.checksum}"
-    cpus             = var.box_cpus
-    memory           = var.box_memory
-    disk_size        = var.box_disk_size
-    ssh_username     = "vagrant"
-    ssh_password     = "vagrant"
-    ssh_timeout      = "30m"
-    shutdown_command = "sudo -S systemctl poweroff"
-    http_directory   = "${path.root}"
-    boot_wait        = "15s"
-    boot_command     = [
-        "<up>e<wait><down><down><end>",
-        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora40-minimal.cfg<f10>"   
-    ]
-    parallels_tools_flavor = "lin-arm"
-    parallel_tools_guest_path = "/home/vagrant/prl-tools.iso"
-}

@@ -34,10 +34,11 @@ iso = {
             url = ""
             checksum = ""
         }
-    },    rockylinux8 = {
+    },    
+    rockylinux8 = {
         aarch64 = {
-            url = ""
-            checksum = ""
+            url = "https://download.rockylinux.org/pub/rocky/8/isos/aarch64/Rocky-aarch64-boot.iso"
+            checksum = "19dc9852f269306600c73e9fc1a6b24ea986b8e4c44ad027064954096d7e720e"
         }
         x86_64 = {
             url = "https://download.rockylinux.org/pub/rocky/8/isos/x86_64/Rocky-x86_64-boot.iso"
