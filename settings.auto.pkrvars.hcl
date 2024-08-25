@@ -31,8 +31,8 @@ iso = {
             checksum = "690731ac6abba81413d97517baa80841cb122d07b296ec3f2935848be45be8fe"
         }
         x86_64 = {
-            url = ""
-            checksum = ""
+            url = "https://download.fedoraproject.org/pub/fedora/linux/releases/40/Server/x86_64/iso/Fedora-Server-netinst-x86_64-40-1.14.iso"
+            checksum = "1b4f163c55aa9b35bb08f3d465534aa68899a4984b8ba8976b1e7b28297b61fe"
         }
     },    
     rockylinux8 = {
@@ -42,7 +42,7 @@ iso = {
         }
         x86_64 = {
             url = "https://download.rockylinux.org/pub/rocky/8/isos/x86_64/Rocky-x86_64-boot.iso"
-            checksum = "96c9d96c33ebacc8e909dcf8abf067b6bb30588c0c940a9c21bb9b83f3c99868"
+            checksum = "203744a255ea6579e49ca7f7f0f17e2fda94e50945d8183a254490e454c7c5b4"
         }
     },
     rockylinux9 = {

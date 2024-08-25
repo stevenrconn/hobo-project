@@ -13,8 +13,12 @@ build {
         // VirtualBox sources
         "source.virtualbox-iso.debian-bullseye",
         "source.virtualbox-iso.debian-bookworm",
+        "source.virtualbox-iso.fedora40",
+        "source.virtualbox-iso.fedora40-minimal",
         "source.virtualbox-iso.rockylinux8",
+        "source.virtualbox-iso.rockylinux8-minimal",
         "source.virtualbox-iso.rockylinux9",
+        "source.virtualbox-iso.rockylinux9-minimal",
         "source.virtualbox-iso.ubuntu-focal",
         "source.virtualbox-iso.ubuntu-jammy",
         "source.virtualbox-iso.ubuntu-noble"
@@ -45,6 +49,21 @@ build {
             "set -o xtrace",
             "mount -o loop /home/vagrant/prl-tools.iso /mnt",
             "/mnt/install --install-unattended",
+            "umount /mnt"
+        ]
+    }
+
+    provisioner "shell" {
+        only = [
+            "source.virtualbox-iso.rockylinux8",
+            "source.virtualbox-iso.rockylinux9"
+        ]
+        execute_command = "sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
+        inline = [
+            "set -o xtrace",
+            "dnf --assumeyes --allowerasing install tar bzip2 gcc make kernel-devel",
+            "mount -o loop /home/vagrant/VBoxGuestAdditions.iso /mnt",
+            "/mnt/VBoxLinuxAdditions.run",
             "umount /mnt"
         ]
     }

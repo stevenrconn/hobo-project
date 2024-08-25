@@ -50,6 +50,46 @@ source "virtualbox-iso" "debian-bookworm" {
     headless         = var.packer_headless
 }
 
+source "virtualbox-iso" "fedora40" {
+    guest_os_type    = "Fedora_64"
+    iso_url          = "${var.iso.fedora40.x86_64.url}"
+    iso_checksum     = "${var.iso.fedora40.x86_64.checksum}"
+    cpus             = var.box_cpus
+    memory           = var.box_memory
+    disk_size        = var.box_disk_size
+    nic_type         = "${var.box_nic_type}" 
+    ssh_username     = "vagrant"
+    ssh_password     = "vagrant"
+    ssh_timeout      = "30m"
+    shutdown_command = "sudo -S systemctl poweroff"
+    http_directory   = "${path.root}"
+    boot_command     = [
+        "<up>e<wait><down><down><end>",
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora40.cfg<f10>"   
+    ]
+    headless         = var.packer_headless
+}
+
+source "virtualbox-iso" "fedora40-minimal" {
+    guest_os_type    = "Fedora_64"
+    iso_url          = "${var.iso.fedora40.x86_64.url}"
+    iso_checksum     = "${var.iso.fedora40.x86_64.checksum}"
+    cpus             = var.box_cpus
+    memory           = var.box_memory
+    disk_size        = var.box_disk_size
+    nic_type         = "${var.box_nic_type}" 
+    ssh_username     = "vagrant"
+    ssh_password     = "vagrant"
+    ssh_timeout      = "30m"
+    shutdown_command = "sudo -S systemctl poweroff"
+    http_directory   = "${path.root}"
+    boot_command     = [
+        "<up>e<wait><down><down><end>",
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora40-minimal.cfg<f10>"   
+    ]
+    headless         = var.packer_headless
+}
+
 source "virtualbox-iso" "rockylinux8" {
     guest_os_type    = "RedHat8_64"
     iso_url          = "${var.iso.rockylinux8.x86_64.url}"
@@ -66,7 +106,29 @@ source "virtualbox-iso" "rockylinux8" {
     boot_command     = [
         "<up><tab>",
         " fips=1",
-        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-rockylinux8.cfg",
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-rockylinux8.x86_64.cfg",
+        "<enter>"
+    ]
+    headless         = var.packer_headless
+}
+
+source "virtualbox-iso" "rockylinux8-minimal" {
+    guest_os_type    = "RedHat8_64"
+    iso_url          = "${var.iso.rockylinux8.x86_64.url}"
+    iso_checksum     = "${var.iso.rockylinux8.x86_64.checksum}"
+    cpus             = var.box_cpus
+    memory           = var.box_memory
+    disk_size        = var.box_disk_size
+    nic_type         = "${var.box_nic_type}" 
+    ssh_username     = "vagrant"
+    ssh_password     = "vagrant"
+    ssh_timeout      = "30m"
+    shutdown_command = "sudo -S systemctl poweroff"
+    http_directory   = "${path.root}"
+    boot_command     = [
+        "<up><tab>",
+        " fips=1",
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-rockylinux8-minimal.x86_64.cfg",
         "<enter>"
     ]
     headless         = var.packer_headless
@@ -88,7 +150,29 @@ source "virtualbox-iso" "rockylinux9" {
     boot_command     = [
         "<up><tab>",
         " fips=1",
-        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-rockylinux9.cfg",
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-rockylinux9.x86_64.cfg",
+        "<enter>"
+    ]
+    headless = var.packer_headless
+}
+
+source "virtualbox-iso" "rockylinux9-minimal" {
+    guest_os_type    = "RedHat9_64"
+    iso_url          = "${var.iso.rockylinux9.x86_64.url}"
+    iso_checksum     = "${var.iso.rockylinux9.x86_64.checksum}"
+    cpus             = var.box_cpus
+    memory           = var.box_memory
+    disk_size        = var.box_disk_size
+    nic_type         = "${var.box_nic_type}" 
+    ssh_username     = "vagrant"
+    ssh_password     = "vagrant"
+    ssh_timeout      = "30m"
+    shutdown_command = "sudo -S systemctl poweroff"
+    http_directory   = "${path.root}"
+    boot_command     = [
+        "<up><tab>",
+        " fips=1",
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-rockylinux9-minimal.x86_64.cfg",
         "<enter>"
     ]
     headless = var.packer_headless
