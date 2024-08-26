@@ -17,12 +17,12 @@ iso = {
     },
     debian-bookworm = {
         aarch64 = {
-            url = ""
-            checksum = ""
+            url = "https://cdimage.debian.org/debian-cd/current/arm64/iso-cd/debian-12.6.0-arm64-netinst.iso"
+            checksum = "38dc21a00ca96dab9754c9c6e8eea55549befc99dbe88d4e3c8af4bd622ab22f"
         }
         x86_64 = {
-            url = "https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-12.4.0-amd64-netinst.iso"
-            checksum = "64d727dd5785ae5fcfd3ae8ffbede5f40cca96f1580aaa2820e8b99dae989d94"
+            url = "https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-12.6.0-amd64-netinst.iso"
+            checksum = "ade3a4acc465f59ca2496344aab72455945f3277a52afc5a2cae88cdc370fa12"
         }
     },
     fedora40 = {
@@ -47,12 +47,12 @@ iso = {
     },
     rockylinux9 = {
         aarch64 = {
-            url = "https://download.rockylinux.org/pub/rocky/9/isos/aarch64/Rocky-9.4-aarch64-boot.iso"
+            url = "https://download.rockylinux.org/pub/rocky/9/isos/aarch64/Rocky-aarch64-boot.iso"
             checksum = "c6244d1a94ddf1e91ea68f2667aaed218a742a985abb76c3486a85b72819d9e2"
         }
         x86_64 = {
             url = "https://download.rockylinux.org/pub/rocky/9/isos/x86_64/Rocky-x86_64-boot.iso"
-            checksum = "11e42da96a7b336de04e60d05e54a22999c4d7f3e92c19ebf31f9c71298f5b42"
+            checksum = "c7e95e3dba88a1f68fff8b7d4e66adf6f76ac4fba2e246a83c46ab79574c78a8"
         }
     }
     ubuntu-focal = {
