@@ -24,8 +24,57 @@ build {
         "source.virtualbox-iso.ubuntu-noble"
     ]
 
+    // Update/reboot VM - Debian/Ubuntu
     provisioner "shell" {
         execute_command = "sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
+        expect_disconnect = true
+        only = [
+            "parallels-iso.ubuntu-jammy",
+            "parallels-iso.ubuntu-noble",
+            "virtualbox-iso.debian-bullseye",
+            "virtualbox-iso.debian-bookworm",  
+            "virtualbox-iso.ubuntu-focal",
+            "virtualbox-iso.ubuntu-jammy",
+            "virtualbox-iso.ubuntu-noble"      
+        ]
+        inline = [
+            "set -o xtrace",
+            "apt-get update",
+            "apt-get --assume-yes upgrade",
+            "apt-get --assume-yes install bzip2",
+            "systemctl reboot"
+        ]
+    }
+
+    // Update/reboot VM - Fedora/Rocky Linux
+    provisioner "shell" {
+        execute_command = "sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
+        expect_disconnect = true
+        only = [
+            "parallels-iso.fedora40",
+            "parallels-iso.fedora40-minimal",
+            "parallels-iso.rockylinux8",
+            "parallels-iso.rockylinux8-minimal",
+            "parallels-iso.rockylinux9",
+            "parallels-iso.rockylinux9-minimal",
+            "virtualbox-iso.fedora40",
+            "virtualbox-iso.fedora40-minimal",
+            "virtualbox-iso.rockylinux8",
+            "virtualbox-iso.rockylinux8-minimal",
+            "virtualbox-iso.rockylinux9",
+            "virtualbox-iso.rockylinux9-minimal"
+        ]
+        inline = [
+            "set -o xtrace",
+            "dnf --assumeyes --allowerasing upgrade",
+            "systemctl reboot"
+        ]
+    }
+
+    // Apply Vagrant provisioning
+    provisioner "shell" {
+        execute_command = "sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
+        pause_before = "60s"
         inline = [
             "set -o xtrace",
             "hostnamectl set-hostname ${source.name}",
@@ -36,6 +85,7 @@ build {
         ]
     }
 
+    // Install Parallels Tools for non-minimal Parallels builds
     provisioner "shell" {
         only = [
             "parallels-iso.fedora40",
@@ -53,17 +103,38 @@ build {
         ]
     }
 
+    // Install VirtualBox Guest Additions prerequisites for Fedora/Rocky Linux
     provisioner "shell" {
         only = [
-            "source.virtualbox-iso.rockylinux8",
-            "source.virtualbox-iso.rockylinux9"
+            "virtualbox-iso.fedora40",
+            "virtualbox-iso.rockylinux8",
+            "virtualbox-iso.rockylinux9"
         ]
         execute_command = "sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
         inline = [
             "set -o xtrace",
-            "dnf --assumeyes --allowerasing install tar bzip2 gcc make kernel-devel",
+            "dnf --assumeyes --allowerasing install tar bzip2 gcc make kernel-devel"
+        ]
+    }
+
+    // Install VirtualBox Guest Additions for non-minimal VirtualBox builds
+    provisioner "shell" {
+        only = [
+            "virtualbox-iso.debian-bullseye",
+            "virtualbox-iso.debian-bookworm",
+            "virtualbox-iso.fedora40",
+            "virtualbox-iso.rockylinux8",
+            "virtualbox-iso.rockylinux9",
+            "virtualbox-iso.ubuntu-focal",
+            "virtualbox-iso.ubuntu-jammy",
+            "virtualbox-iso.ubuntu-noble"
+        ]
+        execute_command = "sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
+        valid_exit_codes = [ 0, 2 ]
+        inline = [
+            "set -o xtrace",
             "mount -o loop /home/vagrant/VBoxGuestAdditions.iso /mnt",
-            "/mnt/VBoxLinuxAdditions.run",
+            "/mnt/VBoxLinuxAdditions.run --nox11 --quiet --accept",
             "umount /mnt"
         ]
     }
