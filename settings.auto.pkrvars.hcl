@@ -21,8 +21,8 @@ iso = {
             checksum = "38dc21a00ca96dab9754c9c6e8eea55549befc99dbe88d4e3c8af4bd622ab22f"
         }
         x86_64 = {
-            url = "https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-12.6.0-amd64-netinst.iso"
-            checksum = "ade3a4acc465f59ca2496344aab72455945f3277a52afc5a2cae88cdc370fa12"
+            url = "https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-12.8.0-amd64-netinst.iso"
+            checksum = "04396d12b0f377958a070c38a923c227832fa3b3e18ddc013936ecf492e9fbb3"
         }
     },
     fedora40 = {
@@ -51,8 +51,8 @@ iso = {
             checksum = "c6244d1a94ddf1e91ea68f2667aaed218a742a985abb76c3486a85b72819d9e2"
         }
         x86_64 = {
-            url = "https://download.rockylinux.org/pub/rocky/9/isos/x86_64/Rocky-x86_64-boot.iso"
-            checksum = "c7e95e3dba88a1f68fff8b7d4e66adf6f76ac4fba2e246a83c46ab79574c78a8"
+            url = "https://download.rockylinux.org/pub/rocky/9/isos/x86_64/Rocky-9.5-x86_64-boot.iso"
+            checksum = "628c069c9685477360640a6b58dc919692a11c44b49a50a024b5627ce3c27d5f"
         }
     }
     ubuntu-focal = {
@@ -81,8 +81,8 @@ iso = {
             checksum = "d2d9986ada3864666e36a57634dfc97d17ad921fa44c56eeaca801e7dab08ad7"
         }
         x86_64 = {
-            url = "https://releases.ubuntu.com/24.04/ubuntu-24.04-live-server-amd64.iso"
-            checksum = "8762f7e74e4d64d72fceb5f70682e6b069932deedb4949c6975d0f0fe0a91be3"
+            url = "https://releases.ubuntu.com/noble/ubuntu-24.04.1-live-server-amd64.iso"
+            checksum = "e240e4b801f7bb68c20d1356b60968ad0c33a41d00d828e74ceb3364a0317be9"
         }
     }                
 }
