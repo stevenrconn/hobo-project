@@ -90,6 +90,46 @@ source "virtualbox-iso" "fedora40-minimal" {
     headless         = var.packer_headless
 }
 
+source "virtualbox-iso" "fedora41" {
+    guest_os_type    = "Fedora_64"
+    iso_url          = "${var.iso.fedora41.x86_64.url}"
+    iso_checksum     = "${var.iso.fedora41.x86_64.checksum}"
+    cpus             = var.box_cpus
+    memory           = var.box_memory
+    disk_size        = var.box_disk_size
+    nic_type         = "${var.box_nic_type}" 
+    ssh_username     = "vagrant"
+    ssh_password     = "vagrant"
+    ssh_timeout      = "30m"
+    shutdown_command = "sudo -S systemctl poweroff"
+    http_directory   = "${path.root}"
+    boot_command     = [
+        "<up>e<wait><down><down><end>",
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora41.cfg<f10>"   
+    ]
+    headless         = var.packer_headless
+}
+
+source "virtualbox-iso" "fedora41-minimal" {
+    guest_os_type    = "Fedora_64"
+    iso_url          = "${var.iso.fedora41.x86_64.url}"
+    iso_checksum     = "${var.iso.fedora41.x86_64.checksum}"
+    cpus             = var.box_cpus
+    memory           = var.box_memory
+    disk_size        = var.box_disk_size
+    nic_type         = "${var.box_nic_type}" 
+    ssh_username     = "vagrant"
+    ssh_password     = "vagrant"
+    ssh_timeout      = "30m"
+    shutdown_command = "sudo -S systemctl poweroff"
+    http_directory   = "${path.root}"
+    boot_command     = [
+        "<up>e<wait><down><down><end>",
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora41-minimal.cfg<f10>"   
+    ]
+    headless         = var.packer_headless
+}
+
 source "virtualbox-iso" "rockylinux8" {
     guest_os_type    = "RedHat8_64"
     iso_url          = "${var.iso.rockylinux8.x86_64.url}"

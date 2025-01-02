@@ -13,6 +13,8 @@ build {
         "source.virtualbox-iso.debian-bookworm",
         "source.virtualbox-iso.fedora40",
         "source.virtualbox-iso.fedora40-minimal",
+        "source.virtualbox-iso.fedora41",
+        "source.virtualbox-iso.fedora41-minimal",
         "source.virtualbox-iso.rockylinux8",
         "source.virtualbox-iso.rockylinux8-minimal",
         "source.virtualbox-iso.rockylinux9",
@@ -55,6 +57,8 @@ build {
             "parallels-iso.rockylinux9-minimal",
             "virtualbox-iso.fedora40",
             "virtualbox-iso.fedora40-minimal",
+            "virtualbox-iso.fedora41",
+            "virtualbox-iso.fedora41-minimal",
             "virtualbox-iso.rockylinux8",
             "virtualbox-iso.rockylinux8-minimal",
             "virtualbox-iso.rockylinux9",
@@ -62,7 +66,7 @@ build {
         ]
         inline = [
             "set -o xtrace",
-            "dnf --assumeyes --allowerasing upgrade",
+            "dnf --assumeyes upgrade",
             "systemctl reboot"
         ]
     }
@@ -102,13 +106,14 @@ build {
     provisioner "shell" {
         only = [
             "virtualbox-iso.fedora40",
+            "virtualbox-iso.fedora41",
             "virtualbox-iso.rockylinux8",
             "virtualbox-iso.rockylinux9"
         ]
         execute_command = "sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
         inline = [
             "set -o xtrace",
-            "dnf --assumeyes --allowerasing install tar bzip2 gcc make kernel-devel"
+            "dnf --assumeyes install tar bzip2 gcc make kernel-devel"
         ]
     }
 
@@ -118,6 +123,7 @@ build {
             "virtualbox-iso.debian-bullseye",
             "virtualbox-iso.debian-bookworm",
             "virtualbox-iso.fedora40",
+            "virtualbox-iso.fedora41",
             "virtualbox-iso.rockylinux8",
             "virtualbox-iso.rockylinux9",
             "virtualbox-iso.ubuntu-focal",

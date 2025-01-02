@@ -35,6 +35,16 @@ iso = {
             checksum = "1b4f163c55aa9b35bb08f3d465534aa68899a4984b8ba8976b1e7b28297b61fe"
         }
     },    
+    fedora41 = {
+        aarch64 = {
+            url = "https://download.fedoraproject.org/pub/fedora/linux/releases/41/Server/aarch64/iso/Fedora-Server-netinst-aarch64-41-1.4.iso"
+            checksum = "9fff15b2be224e7f2f12defe7901eed0255c6611e4f87c6fb322081296801641"
+        }
+        x86_64 = {
+            url = "https://download.fedoraproject.org/pub/fedora/linux/releases/41/Server/x86_64/iso/Fedora-Server-netinst-x86_64-41-1.4.iso"
+            checksum = "630c52ba9e7a7f229b026e241ba74b9bc105e60ba5bf7b222693ae0e25f05c97"
+        }
+    },    
     rockylinux8 = {
         aarch64 = {
             url = "https://download.rockylinux.org/pub/rocky/8/isos/aarch64/Rocky-aarch64-boot.iso"
@@ -71,8 +81,8 @@ iso = {
             checksum = "74b8a9f71288ae0ac79075c2793a0284ef9b9729a3dcf41b693d95d724622b65"
         }
         x86_64 = {
-            url = "https://releases.ubuntu.com/releases/22.04.4/ubuntu-22.04.4-live-server-amd64.iso"
-            checksum = "45f873de9f8cb637345d6e66a583762730bbea30277ef7b32c9c3bd6700a32b2"
+            url = "https://releases.ubuntu.com/releases/22.04.4/ubuntu-22.04.5-live-server-amd64.iso"
+            checksum = "9bc6028870aef3f74f4e16b900008179e78b130e6b0b9a140635434a46aa98b0"
         }
     },
     ubuntu-noble = {
