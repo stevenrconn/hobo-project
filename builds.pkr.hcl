@@ -3,6 +3,8 @@ build {
         // Parallels sources
         "source.parallels-iso.fedora40",
         "source.parallels-iso.fedora40-minimal",
+        "source.parallels-iso.fedora41",
+        "source.parallels-iso.fedora41-minimal",
         "source.parallels-iso.rockylinux9",
         "source.parallels-iso.rockylinux9-minimal",
         "source.parallels-iso.ubuntu-jammy",
@@ -53,6 +55,8 @@ build {
         only = [
             "parallels-iso.fedora40",
             "parallels-iso.fedora40-minimal",
+            "parallels-iso.fedora41",
+            "parallels-iso.fedora41-minimal",
             "parallels-iso.rockylinux9",
             "parallels-iso.rockylinux9-minimal",
             "virtualbox-iso.fedora40",
@@ -89,6 +93,7 @@ build {
     provisioner "shell" {
         only = [
             "parallels-iso.fedora40",
+            "parallels-iso.fedora41",
             "parallels-iso.rockylinux9",
             "parallels-iso.ubuntu-jammy",
             "parallels-iso.ubuntu-noble"
