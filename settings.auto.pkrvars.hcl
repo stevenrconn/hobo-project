@@ -45,6 +45,36 @@ iso = {
             checksum = "630c52ba9e7a7f229b026e241ba74b9bc105e60ba5bf7b222693ae0e25f05c97"
         }
     },    
+    rhel8 = {
+        aarch64 = {
+            url = ""
+            checksum = ""
+        }
+        x86_64 = {
+            url = "/home/mrslip/iso/rhel-8.10-x86_64-dvd.iso"
+            checksum = "9b3c8e31bc2cdd2de9cf96abb3726347f5840ff3b176270647b3e66639af291b"
+        }
+    },
+    rhel9 = {
+        aarch64 = {
+            url = ""
+            checksum = ""
+        }
+        x86_64 = {
+            url = "/home/mrslip/iso/rhel-9.5-x86_64-dvd.iso"
+            checksum = "0bb7600c3187e89cebecfcfc73947eb48b539252ece8aab3fe04d010e8644ea9"
+        }
+    },
+    rhel10 = {
+        aarch64 = {
+            url = ""
+            checksum = ""
+        }
+        x86_64 = {
+            url = "/home/mrslip/iso/rhel-10.0-beta-x86_64-dvd.iso"
+            checksum = "f837ceb4e481aa630f83b2151bb41c9fa5043b1460305d52a0e00646466ed4ac"
+        }
+    },
     rockylinux8 = {
         aarch64 = {
             url = "https://download.rockylinux.org/pub/rocky/8/isos/aarch64/Rocky-aarch64-boot.iso"
