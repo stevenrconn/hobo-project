@@ -174,6 +174,28 @@ source "virtualbox-iso" "rhel9-minimal" {
     headless = var.packer_headless
 }
 
+source "virtualbox-iso" "rhel10-minimal" {
+    guest_os_type    = "RedHat9_64"
+    iso_url          = "${var.iso.rhel10.x86_64.url}"
+    iso_checksum     = "${var.iso.rhel10.x86_64.checksum}"
+    cpus             = var.box_cpus
+    memory           = var.box_memory
+    disk_size        = var.box_disk_size
+    nic_type         = "${var.box_nic_type}" 
+    ssh_username     = "vagrant"
+    ssh_password     = "vagrant"
+    ssh_timeout      = "30m"
+    shutdown_command = "sudo -S systemctl poweroff"
+    http_directory   = "${path.root}"
+    boot_command     = [
+        "<up>e<down><down><end>",
+        " fips=1",
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-rhel-minimal.cfg",
+        "<f10>"
+    ]
+    headless = var.packer_headless
+}
+
 source "virtualbox-iso" "rockylinux8" {
     guest_os_type    = "RedHat8_64"
     iso_url          = "${var.iso.rockylinux8.x86_64.url}"

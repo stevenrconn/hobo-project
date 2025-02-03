@@ -19,6 +19,7 @@ build {
         "source.virtualbox-iso.fedora41-minimal",
         "source.virtualbox-iso.rhel8-minimal",
         "source.virtualbox-iso.rhel9-minimal",
+        "source.virtualbox-iso.rhel10-minimal",
         "source.virtualbox-iso.rockylinux8",
         "source.virtualbox-iso.rockylinux8-minimal",
         "source.virtualbox-iso.rockylinux9",
