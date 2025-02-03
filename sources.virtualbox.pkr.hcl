@@ -146,7 +146,7 @@ source "virtualbox-iso" "rhel9-minimal" {
     boot_command     = [
         "<up><tab>",
         " fips=1",
-        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-rhel-minimal.x86_64.cfg",
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-rhel-minimal.cfg",
         "<enter>"
     ]
     headless = var.packer_headless

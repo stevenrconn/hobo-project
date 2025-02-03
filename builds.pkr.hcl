@@ -72,6 +72,7 @@ build {
         inline = [
             "set -o xtrace",
             "dnf --assumeyes upgrade",
+            "dnf clean all",
             "systemctl reboot"
         ]
     }
@@ -119,7 +120,8 @@ build {
         execute_command = "sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
         inline = [
             "set -o xtrace",
-            "dnf --assumeyes install tar bzip2 gcc make kernel-devel"
+            "dnf --assumeyes install tar bzip2 gcc make kernel-devel",
+            "dnf clean all"
         ]
     }
 
