@@ -17,12 +17,12 @@ iso = {
     },
     debian-bookworm = {
         aarch64 = {
-            url = "https://cdimage.debian.org/debian-cd/current/arm64/iso-cd/debian-12.6.0-arm64-netinst.iso"
-            checksum = "38dc21a00ca96dab9754c9c6e8eea55549befc99dbe88d4e3c8af4bd622ab22f"
+            url = "https://cdimage.debian.org/debian-cd/current/arm64/iso-cd/debian-12.9.0-arm64-netinst.iso"
+            checksum = "98b41e276dc41478c43298ee149f05ad446aa736273aaa653a39d64dab65a6a4"
         }
         x86_64 = {
-            url = "https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-12.8.0-amd64-netinst.iso"
-            checksum = "04396d12b0f377958a070c38a923c227832fa3b3e18ddc013936ecf492e9fbb3"
+            url = "https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-12.9.0-amd64-netinst.iso"
+            checksum = "1257373c706d8c07e6917942736a865dfff557d21d76ea3040bb1039eb72a054"
         }
     },
     fedora40 = {
