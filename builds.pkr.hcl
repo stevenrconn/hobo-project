@@ -17,6 +17,9 @@ build {
         "source.virtualbox-iso.fedora40-minimal",
         "source.virtualbox-iso.fedora41",
         "source.virtualbox-iso.fedora41-minimal",
+        "source.virtualbox-iso.rhel8-minimal",
+        "source.virtualbox-iso.rhel9-minimal",
+        "source.virtualbox-iso.rhel10-minimal",
         "source.virtualbox-iso.rockylinux8",
         "source.virtualbox-iso.rockylinux8-minimal",
         "source.virtualbox-iso.rockylinux9",
@@ -71,6 +74,7 @@ build {
         inline = [
             "set -o xtrace",
             "dnf --assumeyes upgrade",
+            "dnf clean all",
             "systemctl reboot"
         ]
     }
@@ -118,7 +122,8 @@ build {
         execute_command = "sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
         inline = [
             "set -o xtrace",
-            "dnf --assumeyes install tar bzip2 gcc make kernel-devel"
+            "dnf --assumeyes install tar bzip2 gcc make kernel-devel",
+            "dnf clean all"
         ]
     }
 
