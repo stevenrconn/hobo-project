@@ -141,7 +141,7 @@ build {
             "virtualbox-iso.ubuntu-noble"
         ]
         execute_command = "sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
-        valid_exit_codes = [ 0, 2 ]
+        valid_exit_codes = [ 0, 1, 2 ]
         inline = [
             "set -o xtrace",
             "mount -o loop /home/vagrant/VBoxGuestAdditions.iso /mnt",

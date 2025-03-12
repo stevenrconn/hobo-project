@@ -175,7 +175,7 @@ source "virtualbox-iso" "rhel9-minimal" {
 }
 
 source "virtualbox-iso" "rhel10-minimal" {
-    guest_os_type    = "RedHat9_64"
+    guest_os_type    = "RedHat_64"
     iso_url          = "${var.iso.rhel10.x86_64.url}"
     iso_checksum     = "${var.iso.rhel10.x86_64.checksum}"
     cpus             = var.box_cpus
@@ -189,7 +189,7 @@ source "virtualbox-iso" "rhel10-minimal" {
     http_directory   = "${path.root}"
     boot_command     = [
         "<up>e<down><down><end>",
-        " fips=1",
+        # " fips=1",
         " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-rhel-minimal.cfg",
         "<f10>"
     ]
