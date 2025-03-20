@@ -17,12 +17,12 @@ iso = {
     },
     debian-bookworm = {
         aarch64 = {
-            url = "https://cdimage.debian.org/debian-cd/current/arm64/iso-cd/debian-12.9.0-arm64-netinst.iso"
+            url = "https://cdimage.debian.org/debian-cd/current/arm64/iso-cd/debian-12.10.0-arm64-netinst.iso"
             checksum = "98b41e276dc41478c43298ee149f05ad446aa736273aaa653a39d64dab65a6a4"
         }
         x86_64 = {
-            url = "https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-12.9.0-amd64-netinst.iso"
-            checksum = "1257373c706d8c07e6917942736a865dfff557d21d76ea3040bb1039eb72a054"
+            url = "https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-12.10.0-amd64-netinst.iso"
+            checksum = "ee8d8579128977d7dc39d48f43aec5ab06b7f09e1f40a9d98f2a9d149221704a"
         }
     },
     fedora40 = {
@@ -111,7 +111,7 @@ iso = {
             checksum = "74b8a9f71288ae0ac79075c2793a0284ef9b9729a3dcf41b693d95d724622b65"
         }
         x86_64 = {
-            url = "https://releases.ubuntu.com/releases/22.04.4/ubuntu-22.04.5-live-server-amd64.iso"
+            url = "https://releases.ubuntu.com/releases/22.04.5/ubuntu-22.04.5-live-server-amd64.iso"
             checksum = "9bc6028870aef3f74f4e16b900008179e78b130e6b0b9a140635434a46aa98b0"
         }
     },
