@@ -44,7 +44,8 @@ build {
         ]
         inline = [
             "set -o xtrace",
-            "apt-get update",
+            "export DEBIAN_FRONTEND=noninteractive",
+            "apt-get -o Acquire::Check-Valid-Until=false -o Acquire::Check-Date=false update",
             "apt-get --assume-yes upgrade",
             "apt-get --assume-yes install bzip2",
             "systemctl reboot"
