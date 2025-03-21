@@ -299,8 +299,13 @@ source "virtualbox-iso" "ubuntu-focal" {
     http_directory   = "${path.root}"
     boot_wait        = "5s"
     boot_command     = [
-        "<enter><enter><f6><esc><wait> ",
-        "autoinstall ds=nocloud-net;s=http://${var.packer_httpip}:{{ .HTTPPort }}/",
+        "c<enter><f6><esc>",
+        "autoinstall ",
+        "<wait5>",
+        "ds=nocloud-net;",
+        "<wait5>",
+        "s=http://${var.packer_httpip}:{{ .HTTPPort }}/",
+        "<wait5>",
         "<enter>"   
     ]
     headless         = var.packer_headless
