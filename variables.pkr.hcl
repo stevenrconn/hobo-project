@@ -29,7 +29,6 @@ variable "box_nic_type" {
 
 variable "box_name_prefix" {
     type = string
-    default = ""
 }
 
 variable "vagrant_ssh_pubkey" {

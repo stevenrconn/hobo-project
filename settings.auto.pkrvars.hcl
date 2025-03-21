@@ -2,7 +2,6 @@ box_cpus           = 1
 box_memory         = 2048
 box_disk_size      = 32768
 box_nic_type       = "virtio"
-box_name_prefix    = "hobo/"
 
 iso = {
     debian-bullseye = {
