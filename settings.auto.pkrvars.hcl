@@ -70,8 +70,8 @@ iso = {
             checksum = ""
         }
         x86_64 = {
-            url = "./isos/rhel-10.0-beta-x86_64-dvd.iso"
-            checksum = "f837ceb4e481aa630f83b2151bb41c9fa5043b1460305d52a0e00646466ed4ac"
+            url = "./isos/rhel-10.0-x86_64-dvd.iso"
+            checksum = "edce2dd6f8e1d1b2ff0b204f89b0659bc9e320d175beb7caad60712957a19608"
         }
     },
     rockylinux8 = {
