@@ -60,8 +60,8 @@ iso = {
             checksum = ""
         }
         x86_64 = {
-            url = "./isos/rhel-9.5-x86_64-dvd.iso"
-            checksum = "0bb7600c3187e89cebecfcfc73947eb48b539252ece8aab3fe04d010e8644ea9"
+            url = "./isos/rhel-9.6-x86_64-dvd.iso"
+            checksum = "febcc1359fd68faceff82d7eed8d21016e022a17e9c74e0e3f9dc3a78816b2bb"
         }
     },
     rhel10 = {
