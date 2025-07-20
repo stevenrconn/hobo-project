@@ -50,6 +50,32 @@ source "virtualbox-iso" "debian-bookworm" {
     headless         = var.packer_headless
 }
 
+source "virtualbox-iso" "debian-bookworm-32" {
+    guest_os_type    = "Debian12"
+    iso_url          = "${var.iso.debian-bookworm.i386.url}"
+    iso_checksum     = "${var.iso.debian-bookworm.i386.checksum}"
+    cpus             = var.box_cpus
+    memory           = var.box_memory
+    disk_size        = var.box_disk_size
+    nic_type         = "${var.box_nic_type}" 
+    ssh_username     = "vagrant"
+    ssh_password     = "vagrant"
+    ssh_timeout      = "30m"
+    shutdown_command = "sudo -S systemctl poweroff"
+    http_directory   = "${path.root}"
+    boot_command     = [
+        "<esc><wait>",
+        "install vmlinuz<wait>",
+        " initrd=install/initrd.gz<wait>",
+        " auto-install/enable=true<wait>",
+        " debconf/priority=critical<wait>",
+        " preseed/url=http://${var.packer_httpip}:{{ .HTTPPort }}/preseed.cfg<wait>",
+        " -- <wait>",
+        "<enter><wait>"
+    ]
+    headless         = var.packer_headless
+}
+
 source "virtualbox-iso" "fedora40" {
     guest_os_type    = "Fedora_64"
     iso_url          = "${var.iso.fedora40.x86_64.url}"

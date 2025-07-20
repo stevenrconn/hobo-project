@@ -13,6 +13,7 @@ build {
         // VirtualBox sources
         "source.virtualbox-iso.debian-bullseye",
         "source.virtualbox-iso.debian-bookworm",
+        "source.virtualbox-iso.debian-bookworm-32",
         "source.virtualbox-iso.fedora40",
         "source.virtualbox-iso.fedora40-minimal",
         "source.virtualbox-iso.fedora41",
@@ -37,7 +38,8 @@ build {
             "parallels-iso.ubuntu-jammy",
             "parallels-iso.ubuntu-noble",
             "virtualbox-iso.debian-bullseye",
-            "virtualbox-iso.debian-bookworm",  
+            "virtualbox-iso.debian-bookworm", 
+            "virtualbox-iso.debian-bookworm-32", 
             "virtualbox-iso.ubuntu-focal",
             "virtualbox-iso.ubuntu-jammy",
             "virtualbox-iso.ubuntu-noble"      
@@ -133,6 +135,7 @@ build {
         only = [
             "virtualbox-iso.debian-bullseye",
             "virtualbox-iso.debian-bookworm",
+            "virtualbox-iso.debian-bookworm-32",
             "virtualbox-iso.fedora40",
             "virtualbox-iso.fedora41",
             "virtualbox-iso.rockylinux8",
