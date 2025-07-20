@@ -14,25 +14,24 @@ iso = {
             checksum = ""
         }        
         x86_64 = {
-            url = "https://get.debian.org/images/archive/11.3.0/amd64/iso-cd/debian-11.3.0-amd64-netinst.iso"
-            checksum = "7892981e1da216e79fb3a1536ce5ebab157afdd20048fe458f2ae34fbc26c19b"
+            url = "https://cdimage.debian.org/images/archive/11.11.0/amd64/iso-cd/debian-11.11.0-amd64-netinst.iso"
+            checksum = "cd5b2a6fc22050affa1d141adb3857af07e94ff886dca1ce17214e2761a3b316"
         }
     },
     debian-bookworm = {
         aarch64 = {
-            url = "https://cdimage.debian.org/debian-cd/current/arm64/iso-cd/debian-12.10.0-arm64-netinst.iso"
-            checksum = "98b41e276dc41478c43298ee149f05ad446aa736273aaa653a39d64dab65a6a4"
+            url = "https://cdimage.debian.org/debian-cd/12.11.0/arm64/iso-cd/debian-12.11.0-arm64-netinst.iso"
+            checksum = "5c050c495770ee9b076261cb8025a99a4866a15a4e3cdab2f59c49e8f69fb0ee"
         }
         i386 = {
             url = "https://cdimage.debian.org/debian-cd/current/i386/iso-cd/debian-12.11.0-i386-netinst.iso"
             checksum = "98c665957ce22ce189dcafcc5885781a5843810bb7e23df77a811e02b17380da"
         }
         x86_64 = {
-            url = "https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-12.10.0-amd64-netinst.iso"
-            checksum = "ee8d8579128977d7dc39d48f43aec5ab06b7f09e1f40a9d98f2a9d149221704a"
+            url = "https://cdimage.debian.org/debian-cd/12.11.0/amd64/iso-cd/debian-12.11.0-amd64-netinst.iso"
+            checksum = "30ca12a15cae6a1033e03ad59eb7f66a6d5a258dcf27acd115c2bd42d22640e8"
         }
     },
-
     fedora40 = {
         aarch64 = {
             url = "https://download.fedoraproject.org/pub/fedora/linux/releases/40/Server/aarch64/iso/Fedora-Server-netinst-aarch64-40-1.14.iso"
