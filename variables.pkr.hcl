@@ -43,6 +43,10 @@ variable "iso" {
             url = string
             checksum = string 
         })
+        i386 = object({
+            url = string
+            checksum = string
+        })
         x86_64 = object({
             url = string
             checksum = string
