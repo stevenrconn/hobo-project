@@ -42,9 +42,9 @@ source "parallels-iso" "rockylinux9-minimal" {
     parallels_tools_guest_path = "/home/vagrant/prl-tools.iso"
 }
 
-source "parallels-iso" "fedora40" {
-    iso_url          = "${var.iso.fedora40.aarch64.url}"
-    iso_checksum     = "${var.iso.fedora40.aarch64.checksum}"
+source "parallels-iso" "fedora42" {
+    iso_url          = "${var.iso.fedora42.aarch64.url}"
+    iso_checksum     = "${var.iso.fedora42.aarch64.checksum}"
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
@@ -56,15 +56,15 @@ source "parallels-iso" "fedora40" {
     boot_wait        = "15s"
     boot_command     = [
         "<up>e<wait><down><down><end>",
-        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora40.cfg<f10>"   
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora.cfg<f10>"   
     ]
     parallels_tools_flavor = "lin-arm"
     parallels_tools_guest_path = "/home/vagrant/prl-tools.iso"
 }
 
-source "parallels-iso" "fedora40-minimal" {
-    iso_url          = "${var.iso.fedora40.aarch64.url}"
-    iso_checksum     = "${var.iso.fedora40.aarch64.checksum}"
+source "parallels-iso" "fedora42-minimal" {
+    iso_url          = "${var.iso.fedora42.aarch64.url}"
+    iso_checksum     = "${var.iso.fedora42.aarch64.checksum}"
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
@@ -76,7 +76,7 @@ source "parallels-iso" "fedora40-minimal" {
     boot_wait        = "15s"
     boot_command     = [
         "<up>e<wait><down><down><end>",
-        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora40-minimal.cfg<f10>"   
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora-minimal.cfg<f10>"   
     ]
     parallels_tools_flavor = "lin-arm"
     parallels_tools_guest_path = "/home/vagrant/prl-tools.iso"
@@ -96,7 +96,7 @@ source "parallels-iso" "fedora41" {
     boot_wait        = "15s"
     boot_command     = [
         "<up>e<wait><down><down><end>",
-        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora41.cfg<f10>"   
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora.cfg<f10>"   
     ]
     parallels_tools_flavor = "lin-arm"
     parallels_tools_guest_path = "/home/vagrant/prl-tools.iso"
@@ -116,7 +116,7 @@ source "parallels-iso" "fedora41-minimal" {
     boot_wait        = "15s"
     boot_command     = [
         "<up>e<wait><down><down><end>",
-        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora41-minimal.cfg<f10>"   
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora-minimal.cfg<f10>"   
     ]
     parallels_tools_flavor = "lin-arm"
     parallels_tools_guest_path = "/home/vagrant/prl-tools.iso"

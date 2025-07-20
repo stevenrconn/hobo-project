@@ -1,8 +1,8 @@
 build {
     sources = [ 
         // Parallels sources
-        "source.parallels-iso.fedora40",
-        "source.parallels-iso.fedora40-minimal",
+        "source.parallels-iso.fedora42",
+        "source.parallels-iso.fedora42-minimal",
         "source.parallels-iso.fedora41",
         "source.parallels-iso.fedora41-minimal",
         "source.parallels-iso.rockylinux9",
@@ -14,8 +14,8 @@ build {
         "source.virtualbox-iso.debian-bullseye",
         "source.virtualbox-iso.debian-bookworm",
         "source.virtualbox-iso.debian-bookworm-32",
-        "source.virtualbox-iso.fedora40",
-        "source.virtualbox-iso.fedora40-minimal",
+        "source.virtualbox-iso.fedora42",
+        "source.virtualbox-iso.fedora42-minimal",
         "source.virtualbox-iso.fedora41",
         "source.virtualbox-iso.fedora41-minimal",
         "source.virtualbox-iso.rhel8-minimal",
@@ -59,14 +59,14 @@ build {
         execute_command = "sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
         expect_disconnect = true
         only = [
-            "parallels-iso.fedora40",
-            "parallels-iso.fedora40-minimal",
+            "parallels-iso.fedora42",
+            "parallels-iso.fedora42-minimal",
             "parallels-iso.fedora41",
             "parallels-iso.fedora41-minimal",
             "parallels-iso.rockylinux9",
             "parallels-iso.rockylinux9-minimal",
-            "virtualbox-iso.fedora40",
-            "virtualbox-iso.fedora40-minimal",
+            "virtualbox-iso.fedora42",
+            "virtualbox-iso.fedora42-minimal",
             "virtualbox-iso.fedora41",
             "virtualbox-iso.fedora41-minimal",
             "virtualbox-iso.rockylinux8",
@@ -99,7 +99,7 @@ build {
     // Install Parallels Tools for non-minimal Parallels builds
     provisioner "shell" {
         only = [
-            "parallels-iso.fedora40",
+            "parallels-iso.fedora42",
             "parallels-iso.fedora41",
             "parallels-iso.rockylinux9",
             "parallels-iso.ubuntu-jammy",
@@ -117,7 +117,7 @@ build {
     // Install VirtualBox Guest Additions prerequisites for Fedora/Rocky Linux
     provisioner "shell" {
         only = [
-            "virtualbox-iso.fedora40",
+            "virtualbox-iso.fedora42",
             "virtualbox-iso.fedora41",
             "virtualbox-iso.rockylinux8",
             "virtualbox-iso.rockylinux9"
@@ -136,7 +136,7 @@ build {
             "virtualbox-iso.debian-bullseye",
             "virtualbox-iso.debian-bookworm",
             "virtualbox-iso.debian-bookworm-32",
-            "virtualbox-iso.fedora40",
+            "virtualbox-iso.fedora42",
             "virtualbox-iso.fedora41",
             "virtualbox-iso.rockylinux8",
             "virtualbox-iso.rockylinux9",

@@ -76,10 +76,10 @@ source "virtualbox-iso" "debian-bookworm-32" {
     headless         = var.packer_headless
 }
 
-source "virtualbox-iso" "fedora40" {
+source "virtualbox-iso" "fedora42" {
     guest_os_type    = "Fedora_64"
-    iso_url          = "${var.iso.fedora40.x86_64.url}"
-    iso_checksum     = "${var.iso.fedora40.x86_64.checksum}"
+    iso_url          = "${var.iso.fedora42.x86_64.url}"
+    iso_checksum     = "${var.iso.fedora42.x86_64.checksum}"
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
@@ -91,15 +91,15 @@ source "virtualbox-iso" "fedora40" {
     http_directory   = "${path.root}"
     boot_command     = [
         "<up>e<wait><down><down><end>",
-        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora40.cfg<f10>"   
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora.cfg<f10>"   
     ]
     headless         = var.packer_headless
 }
 
-source "virtualbox-iso" "fedora40-minimal" {
+source "virtualbox-iso" "fedora42-minimal" {
     guest_os_type    = "Fedora_64"
-    iso_url          = "${var.iso.fedora40.x86_64.url}"
-    iso_checksum     = "${var.iso.fedora40.x86_64.checksum}"
+    iso_url          = "${var.iso.fedora42.x86_64.url}"
+    iso_checksum     = "${var.iso.fedora42.x86_64.checksum}"
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
@@ -111,7 +111,7 @@ source "virtualbox-iso" "fedora40-minimal" {
     http_directory   = "${path.root}"
     boot_command     = [
         "<up>e<wait><down><down><end>",
-        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora40-minimal.cfg<f10>"   
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora-minimal.cfg<f10>"   
     ]
     headless         = var.packer_headless
 }
@@ -131,7 +131,7 @@ source "virtualbox-iso" "fedora41" {
     http_directory   = "${path.root}"
     boot_command     = [
         "<up>e<wait><down><down><end>",
-        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora41.cfg<f10>"   
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora.cfg<f10>"   
     ]
     headless         = var.packer_headless
 }
@@ -151,7 +151,7 @@ source "virtualbox-iso" "fedora41-minimal" {
     http_directory   = "${path.root}"
     boot_command     = [
         "<up>e<wait><down><down><end>",
-        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora41-minimal.cfg<f10>"   
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora-minimal.cfg<f10>"   
     ]
     headless         = var.packer_headless
 }

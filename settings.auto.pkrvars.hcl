@@ -32,20 +32,6 @@ iso = {
             checksum = "30ca12a15cae6a1033e03ad59eb7f66a6d5a258dcf27acd115c2bd42d22640e8"
         }
     },
-    fedora40 = {
-        aarch64 = {
-            url = "https://download.fedoraproject.org/pub/fedora/linux/releases/40/Server/aarch64/iso/Fedora-Server-netinst-aarch64-40-1.14.iso"
-            checksum = "690731ac6abba81413d97517baa80841cb122d07b296ec3f2935848be45be8fe"
-        }
-        i386 = {
-            url = ""
-            checksum = ""
-        }
-        x86_64 = {
-            url = "https://download.fedoraproject.org/pub/fedora/linux/releases/40/Server/x86_64/iso/Fedora-Server-netinst-x86_64-40-1.14.iso"
-            checksum = "1b4f163c55aa9b35bb08f3d465534aa68899a4984b8ba8976b1e7b28297b61fe"
-        }
-    },    
     fedora41 = {
         aarch64 = {
             url = "https://download.fedoraproject.org/pub/fedora/linux/releases/41/Server/aarch64/iso/Fedora-Server-netinst-aarch64-41-1.4.iso"
@@ -58,6 +44,20 @@ iso = {
         x86_64 = {
             url = "https://download.fedoraproject.org/pub/fedora/linux/releases/41/Server/x86_64/iso/Fedora-Server-netinst-x86_64-41-1.4.iso"
             checksum = "630c52ba9e7a7f229b026e241ba74b9bc105e60ba5bf7b222693ae0e25f05c97"
+        }
+    },    
+    fedora42 = {
+        aarch64 = {
+            url = "https://download.fedoraproject.org/pub/fedora/linux/releases/42/Server/aarch64/iso/Fedora-Server-netinst-aarch64-42-1.1.iso"
+            checksum = "cbeeb6d0147ce198e28895a9bbc91cd49a964f38177a57d512f73492308533ed"
+        }
+        i386 = {
+            url = ""
+            checksum = ""
+        }
+        x86_64 = {
+            url = "https://download.fedoraproject.org/pub/fedora/linux/releases/42/Server/x86_64/iso/Fedora-Server-netinst-x86_64-42-1.1.iso"
+            checksum = "231f3e0d1dc8f565c01a9f641b3d16c49cae44530074bc2047fe2373a721c82f"
         }
     },    
     rhel8 = {
