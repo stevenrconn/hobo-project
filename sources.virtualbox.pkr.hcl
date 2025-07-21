@@ -50,10 +50,10 @@ source "virtualbox-iso" "debian-bookworm" {
     headless         = var.packer_headless
 }
 
-source "virtualbox-iso" "fedora40" {
-    guest_os_type    = "Fedora_64"
-    iso_url          = "${var.iso.fedora40.x86_64.url}"
-    iso_checksum     = "${var.iso.fedora40.x86_64.checksum}"
+source "virtualbox-iso" "debian-bookworm-32" {
+    guest_os_type    = "Debian12"
+    iso_url          = "${var.iso.debian-bookworm.i386.url}"
+    iso_checksum     = "${var.iso.debian-bookworm.i386.checksum}"
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
@@ -64,16 +64,22 @@ source "virtualbox-iso" "fedora40" {
     shutdown_command = "sudo -S systemctl poweroff"
     http_directory   = "${path.root}"
     boot_command     = [
-        "<up>e<wait><down><down><end>",
-        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora40.cfg<f10>"   
+        "<esc><wait>",
+        "install vmlinuz<wait>",
+        " initrd=install/initrd.gz<wait>",
+        " auto-install/enable=true<wait>",
+        " debconf/priority=critical<wait>",
+        " preseed/url=http://${var.packer_httpip}:{{ .HTTPPort }}/preseed.cfg<wait>",
+        " -- <wait>",
+        "<enter><wait>"
     ]
     headless         = var.packer_headless
 }
 
-source "virtualbox-iso" "fedora40-minimal" {
+source "virtualbox-iso" "fedora42" {
     guest_os_type    = "Fedora_64"
-    iso_url          = "${var.iso.fedora40.x86_64.url}"
-    iso_checksum     = "${var.iso.fedora40.x86_64.checksum}"
+    iso_url          = "${var.iso.fedora42.x86_64.url}"
+    iso_checksum     = "${var.iso.fedora42.x86_64.checksum}"
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
@@ -85,7 +91,27 @@ source "virtualbox-iso" "fedora40-minimal" {
     http_directory   = "${path.root}"
     boot_command     = [
         "<up>e<wait><down><down><end>",
-        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora40-minimal.cfg<f10>"   
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora.cfg<f10>"   
+    ]
+    headless         = var.packer_headless
+}
+
+source "virtualbox-iso" "fedora42-minimal" {
+    guest_os_type    = "Fedora_64"
+    iso_url          = "${var.iso.fedora42.x86_64.url}"
+    iso_checksum     = "${var.iso.fedora42.x86_64.checksum}"
+    cpus             = var.box_cpus
+    memory           = var.box_memory
+    disk_size        = var.box_disk_size
+    nic_type         = "${var.box_nic_type}" 
+    ssh_username     = "vagrant"
+    ssh_password     = "vagrant"
+    ssh_timeout      = "30m"
+    shutdown_command = "sudo -S systemctl poweroff"
+    http_directory   = "${path.root}"
+    boot_command     = [
+        "<up>e<wait><down><down><end>",
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora-minimal.cfg<f10>"   
     ]
     headless         = var.packer_headless
 }
@@ -105,7 +131,7 @@ source "virtualbox-iso" "fedora41" {
     http_directory   = "${path.root}"
     boot_command     = [
         "<up>e<wait><down><down><end>",
-        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora41.cfg<f10>"   
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora.cfg<f10>"   
     ]
     headless         = var.packer_headless
 }
@@ -125,7 +151,7 @@ source "virtualbox-iso" "fedora41-minimal" {
     http_directory   = "${path.root}"
     boot_command     = [
         "<up>e<wait><down><down><end>",
-        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora41-minimal.cfg<f10>"   
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora-minimal.cfg<f10>"   
     ]
     headless         = var.packer_headless
 }
