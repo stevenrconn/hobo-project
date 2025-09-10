@@ -20,16 +20,30 @@ iso = {
     },
     debian-bookworm = {
         aarch64 = {
-            url = "https://cdimage.debian.org/debian-cd/12.11.0/arm64/iso-cd/debian-12.11.0-arm64-netinst.iso"
+            url = "https://cdimage.debian.org/images/archive/12.12.0/arm64/iso-cd/debian-12.12.0-arm64-netinst.iso"
             checksum = "5c050c495770ee9b076261cb8025a99a4866a15a4e3cdab2f59c49e8f69fb0ee"
         }
         i386 = {
-            url = "https://cdimage.debian.org/debian-cd/current/i386/iso-cd/debian-12.11.0-i386-netinst.iso"
+            url = "https://cdimage.debian.org/images/archive/12.12.0/i386/iso-cd/debian-12.12.0-i386-netinst.iso"
+            checksum = "b6bfd200581c949e55f2e8d106dd9a2ecf27b5fb4018e934fe96e1b9a87767ba"
+        }
+        x86_64 = {
+            url = "https://cdimage.debian.org/images/archive/12.12.0/amd64/iso-cd/debian-12.12.0-amd64-netinst.iso"
+            checksum = "dfc30e04fd095ac2c07e998f145e94bb8f7d3a8eca3a631d2eb012398deae531"
+        }
+    },
+    debian-trixie = {
+        aarch64 = {
+            url = "https://cdimage.debian.org/debian-cd/13.1.0/arm64/iso-cd/debian-13.1.0-arm64-netinst.iso"
+            checksum = "5c050c495770ee9b076261cb8025a99a4866a15a4e3cdab2f59c49e8f69fb0ee"
+        }
+        i386 = {
+            url = "https://cdimage.debian.org/debian-cd/13.1.0/i386/iso-cd/debian-13.1.0-i386-netinst.iso"
             checksum = "98c665957ce22ce189dcafcc5885781a5843810bb7e23df77a811e02b17380da"
         }
         x86_64 = {
-            url = "https://cdimage.debian.org/debian-cd/12.11.0/amd64/iso-cd/debian-12.11.0-amd64-netinst.iso"
-            checksum = "30ca12a15cae6a1033e03ad59eb7f66a6d5a258dcf27acd115c2bd42d22640e8"
+            url = "https://cdimage.debian.org/debian-cd/13.1.0/amd64/iso-cd/debian-13.1.0-amd64-netinst.iso"
+            checksum = "658b28e209b578fe788ec5867deebae57b6aac5fce3692bbb116bab9c65568b3"
         }
     },
     fedora41 = {
@@ -126,8 +140,8 @@ iso = {
             checksum = ""
         }
         x86_64 = {
-            url = "https://download.rockylinux.org/pub/rocky/9/isos/x86_64/Rocky-9.5-x86_64-boot.iso"
-            checksum = "628c069c9685477360640a6b58dc919692a11c44b49a50a024b5627ce3c27d5f"
+            url = "https://download.rockylinux.org/pub/rocky/9/isos/x86_64/Rocky-9.6-x86_64-boot.iso"
+            checksum = "0fad8d8b19a94a0222ea37152cdf5601229fe0178b651dc476e1cba41d2e6067"
         }
     }
     ubuntu-focal = {
@@ -168,8 +182,8 @@ iso = {
             checksum = ""
         }
         x86_64 = {
-            url = "https://releases.ubuntu.com/noble/ubuntu-24.04.2-live-server-amd64.iso"
-            checksum = "d6dab0c3a657988501b4bd76f1297c053df710e06e0c3aece60dead24f270b4d"
+            url = "https://releases.ubuntu.com/noble/ubuntu-24.04.3-live-server-amd64.iso"
+            checksum = "c3514bf0056180d09376462a7a1b4f213c1d6e8ea67fae5c25099c6fd3d8274b"
         }
     }                
 }
