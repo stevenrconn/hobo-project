@@ -14,6 +14,7 @@ build {
         "source.virtualbox-iso.debian-bullseye",
         "source.virtualbox-iso.debian-bookworm",
         "source.virtualbox-iso.debian-bookworm-32",
+        "source.virtualbox-iso.debian-trixie",
         "source.virtualbox-iso.fedora42",
         "source.virtualbox-iso.fedora42-minimal",
         "source.virtualbox-iso.fedora41",
@@ -40,6 +41,7 @@ build {
             "virtualbox-iso.debian-bullseye",
             "virtualbox-iso.debian-bookworm", 
             "virtualbox-iso.debian-bookworm-32", 
+            "virtualbox-iso.debian-trixie",
             "virtualbox-iso.ubuntu-focal",
             "virtualbox-iso.ubuntu-jammy",
             "virtualbox-iso.ubuntu-noble"      
@@ -136,6 +138,7 @@ build {
             "virtualbox-iso.debian-bullseye",
             "virtualbox-iso.debian-bookworm",
             "virtualbox-iso.debian-bookworm-32",
+            "virtualbox-iso.debian-trixie",
             "virtualbox-iso.fedora42",
             "virtualbox-iso.fedora41",
             "virtualbox-iso.rockylinux8",
