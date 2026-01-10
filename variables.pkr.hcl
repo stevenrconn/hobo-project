@@ -31,6 +31,10 @@ variable "box_name_prefix" {
     type = string
 }
 
+variable "box_arch" {
+    type = string
+}
+
 variable "vagrant_ssh_pubkey" {
     type = string
     sensitive = true
@@ -39,9 +43,9 @@ variable "vagrant_ssh_pubkey" {
 
 variable "iso" {
     type = map(object({
-        aarch64 = object({ 
+        aarch64 = object({
             url = string
-            checksum = string 
+            checksum = string
         })
         i386 = object({
             url = string

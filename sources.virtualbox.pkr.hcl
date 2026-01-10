@@ -1,11 +1,27 @@
+variable "vbox_hard_drive_interface" {
+  type = string
+  default = "virtio"
+}
+
+variable "vbox_iso_interface" {
+  type = string
+  default = "virtio"
+}
+
+variable "vbox_nic_type" {
+  type = string
+  default = "virtio"
+}
+
+
 source "virtualbox-iso" "debian-bullseye" {
-    guest_os_type    = "Debian11_64"
-    iso_url          = "${var.iso.debian-bullseye.x86_64.url}"
-    iso_checksum     = "${var.iso.debian-bullseye.x86_64.checksum}"
+    guest_os_type    = "${local.arch == "aarch64" ? "Debian11_arm64" : "Debian11_64"}"
+    iso_url          = var.iso.debian-bullseye[local.arch].url
+    iso_checksum     = var.iso.debian-bullseye[local.arch].checksum
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}" 
+    nic_type         = "${var.vbox_nic_type}"
     ssh_username     = "vagrant"
     ssh_password     = "vagrant"
     ssh_timeout      = "30m"
@@ -25,27 +41,31 @@ source "virtualbox-iso" "debian-bullseye" {
 }
 
 source "virtualbox-iso" "debian-bookworm" {
-    guest_os_type    = "Debian12_64"
-    iso_url          = "${var.iso.debian-bookworm.x86_64.url}"
-    iso_checksum     = "${var.iso.debian-bookworm.x86_64.checksum}"
+    guest_os_type    = "${local.arch == "aarch64" ? "Debian12_arm64" : "Debian12_64" }"
+    iso_url          = var.iso.debian-bookworm[local.arch].url
+    iso_checksum     = var.iso.debian-bookworm[local.arch].checksum
+    firmware         = "efi"
+    hard_drive_interface = "${var.vbox_hard_drive_interface}"
+    iso_interface    = "${var.vbox_iso_interface}"
+    vboxmanage       = [
+      [ "modifyvm", "{{ .Name }}", "--usbxhci", "on" ]
+    ]
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}" 
+    nic_type         = "${var.vbox_nic_type}"
     ssh_username     = "vagrant"
     ssh_password     = "vagrant"
     ssh_timeout      = "30m"
     shutdown_command = "sudo -S systemctl poweroff"
     http_directory   = "${path.root}"
     boot_command     = [
-        "<esc><wait>",
-        "install vmlinuz<wait>",
-        " initrd=install/initrd.gz<wait>",
-        " auto-install/enable=true<wait>",
-        " debconf/priority=critical<wait>",
-        " preseed/url=http://${var.packer_httpip}:{{ .HTTPPort }}/preseed.cfg<wait>",
-        " -- <wait>",
-        "<enter><wait>"
+        "e<wait>",
+        "<down><down><down><end>",
+        " auto=true",
+        " priority=critical",
+        " url=http://${var.packer_httpip}:{{ .HTTPPort }}/preseed.cfg<wait>",
+        "<f10>"
     ]
     headless         = var.packer_headless
 }
@@ -57,7 +77,7 @@ source "virtualbox-iso" "debian-bookworm-32" {
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}" 
+    nic_type         = "${var.box_nic_type}"
     ssh_username     = "vagrant"
     ssh_password     = "vagrant"
     ssh_timeout      = "30m"
@@ -83,7 +103,7 @@ source "virtualbox-iso" "debian-trixie" {
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}" 
+    nic_type         = "${var.box_nic_type}"
     ssh_username     = "vagrant"
     ssh_password     = "vagrant"
     ssh_timeout      = "30m"
@@ -109,7 +129,7 @@ source "virtualbox-iso" "fedora42" {
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}" 
+    nic_type         = "${var.box_nic_type}"
     ssh_username     = "vagrant"
     ssh_password     = "vagrant"
     ssh_timeout      = "30m"
@@ -117,7 +137,7 @@ source "virtualbox-iso" "fedora42" {
     http_directory   = "${path.root}"
     boot_command     = [
         "<up>e<wait><down><down><end>",
-        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora.cfg<f10>"   
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora.cfg<f10>"
     ]
     headless         = var.packer_headless
 }
@@ -129,7 +149,7 @@ source "virtualbox-iso" "fedora42-minimal" {
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}" 
+    nic_type         = "${var.box_nic_type}"
     ssh_username     = "vagrant"
     ssh_password     = "vagrant"
     ssh_timeout      = "30m"
@@ -137,7 +157,7 @@ source "virtualbox-iso" "fedora42-minimal" {
     http_directory   = "${path.root}"
     boot_command     = [
         "<up>e<wait><down><down><end>",
-        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora-minimal.cfg<f10>"   
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora-minimal.cfg<f10>"
     ]
     headless         = var.packer_headless
 }
@@ -149,7 +169,7 @@ source "virtualbox-iso" "fedora41" {
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}" 
+    nic_type         = "${var.box_nic_type}"
     ssh_username     = "vagrant"
     ssh_password     = "vagrant"
     ssh_timeout      = "30m"
@@ -157,7 +177,7 @@ source "virtualbox-iso" "fedora41" {
     http_directory   = "${path.root}"
     boot_command     = [
         "<up>e<wait><down><down><end>",
-        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora.cfg<f10>"   
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora.cfg<f10>"
     ]
     headless         = var.packer_headless
 }
@@ -169,7 +189,7 @@ source "virtualbox-iso" "fedora41-minimal" {
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}" 
+    nic_type         = "${var.box_nic_type}"
     ssh_username     = "vagrant"
     ssh_password     = "vagrant"
     ssh_timeout      = "30m"
@@ -177,7 +197,7 @@ source "virtualbox-iso" "fedora41-minimal" {
     http_directory   = "${path.root}"
     boot_command     = [
         "<up>e<wait><down><down><end>",
-        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora-minimal.cfg<f10>"   
+        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora-minimal.cfg<f10>"
     ]
     headless         = var.packer_headless
 }
@@ -189,7 +209,7 @@ source "virtualbox-iso" "rhel8-minimal" {
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}" 
+    nic_type         = "${var.box_nic_type}"
     ssh_username     = "vagrant"
     ssh_password     = "vagrant"
     ssh_timeout      = "30m"
@@ -211,7 +231,7 @@ source "virtualbox-iso" "rhel9-minimal" {
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}" 
+    nic_type         = "${var.box_nic_type}"
     ssh_username     = "vagrant"
     ssh_password     = "vagrant"
     ssh_timeout      = "30m"
@@ -233,7 +253,7 @@ source "virtualbox-iso" "rhel10-minimal" {
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}" 
+    nic_type         = "${var.box_nic_type}"
     ssh_username     = "vagrant"
     ssh_password     = "vagrant"
     ssh_timeout      = "30m"
@@ -255,7 +275,7 @@ source "virtualbox-iso" "rockylinux8" {
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}" 
+    nic_type         = "${var.box_nic_type}"
     ssh_username     = "vagrant"
     ssh_password     = "vagrant"
     ssh_timeout      = "30m"
@@ -277,7 +297,7 @@ source "virtualbox-iso" "rockylinux8-minimal" {
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}" 
+    nic_type         = "${var.box_nic_type}"
     ssh_username     = "vagrant"
     ssh_password     = "vagrant"
     ssh_timeout      = "30m"
@@ -299,7 +319,7 @@ source "virtualbox-iso" "rockylinux9" {
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}" 
+    nic_type         = "${var.box_nic_type}"
     ssh_username     = "vagrant"
     ssh_password     = "vagrant"
     ssh_timeout      = "30m"
@@ -321,7 +341,7 @@ source "virtualbox-iso" "rockylinux9-minimal" {
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}" 
+    nic_type         = "${var.box_nic_type}"
     ssh_username     = "vagrant"
     ssh_password     = "vagrant"
     ssh_timeout      = "30m"
@@ -343,7 +363,7 @@ source "virtualbox-iso" "ubuntu-focal" {
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}" 
+    nic_type         = "${var.box_nic_type}"
     ssh_username     = "vagrant"
     ssh_password     = "vagrant"
     ssh_timeout      = "30m"
@@ -358,7 +378,7 @@ source "virtualbox-iso" "ubuntu-focal" {
         "<wait5>",
         "s=http://${var.packer_httpip}:{{ .HTTPPort }}/",
         "<wait5>",
-        "<enter>"   
+        "<enter>"
     ]
     headless         = var.packer_headless
 }
@@ -370,7 +390,7 @@ source "virtualbox-iso" "ubuntu-jammy" {
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}" 
+    nic_type         = "${var.box_nic_type}"
     ssh_username     = "vagrant"
     ssh_password     = "vagrant"
     ssh_timeout      = "30m"
@@ -382,7 +402,7 @@ source "virtualbox-iso" "ubuntu-jammy" {
         "linux /casper/vmlinuz --- autoinstall ds='nocloud-net;s=http://${var.packer_httpip}:{{ .HTTPPort }}/'",
         "<enter><wait>",
         "initrd /casper/initrd<enter><wait>",
-        "boot<enter>"   
+        "boot<enter>"
     ]
     headless         = var.packer_headless
 }
@@ -394,7 +414,7 @@ source "virtualbox-iso" "ubuntu-noble" {
     cpus             = var.box_cpus
     memory           = var.box_memory
     disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}" 
+    nic_type         = "${var.box_nic_type}"
     ssh_username     = "vagrant"
     ssh_password     = "vagrant"
     ssh_timeout      = "30m"
@@ -406,7 +426,7 @@ source "virtualbox-iso" "ubuntu-noble" {
         "linux /casper/vmlinuz --- autoinstall ds='nocloud-net;s=http://${var.packer_httpip}:{{ .HTTPPort }}/'",
         "<enter><wait>",
         "initrd /casper/initrd<enter><wait>",
-        "boot<enter>"   
+        "boot<enter>"
     ]
     headless         = var.packer_headless
 }

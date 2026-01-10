@@ -6,13 +6,13 @@ box_nic_type       = "virtio"
 iso = {
     debian-bullseye = {
         aarch64 = {
-            url = ""
-            checksum = ""
+            url = "https://cdimage.debian.org/images/archive/11.11.0/arm64/iso-cd/debian-11.11.0-arm64-netinst.iso"
+            checksum = "c81b6081d5dc5cfac49310b104eb9843252fd3c97cedbcd69ec0388798e7ef7e"
         }
         i386 = {
             url = ""
             checksum = ""
-        }        
+        }
         x86_64 = {
             url = "https://cdimage.debian.org/images/archive/11.11.0/amd64/iso-cd/debian-11.11.0-amd64-netinst.iso"
             checksum = "cd5b2a6fc22050affa1d141adb3857af07e94ff886dca1ce17214e2761a3b316"
@@ -21,7 +21,7 @@ iso = {
     debian-bookworm = {
         aarch64 = {
             url = "https://cdimage.debian.org/images/archive/12.12.0/arm64/iso-cd/debian-12.12.0-arm64-netinst.iso"
-            checksum = "5c050c495770ee9b076261cb8025a99a4866a15a4e3cdab2f59c49e8f69fb0ee"
+            checksum = "0dd2f82a5dd53cb9c6abd92d30070d23bcbfd7dfb55309be4ac07245df3999b9"
         }
         i386 = {
             url = "https://cdimage.debian.org/images/archive/12.12.0/i386/iso-cd/debian-12.12.0-i386-netinst.iso"
@@ -59,7 +59,7 @@ iso = {
             url = "https://download.fedoraproject.org/pub/fedora/linux/releases/41/Server/x86_64/iso/Fedora-Server-netinst-x86_64-41-1.4.iso"
             checksum = "630c52ba9e7a7f229b026e241ba74b9bc105e60ba5bf7b222693ae0e25f05c97"
         }
-    },    
+    },
     fedora42 = {
         aarch64 = {
             url = "https://download.fedoraproject.org/pub/fedora/linux/releases/42/Server/aarch64/iso/Fedora-Server-netinst-aarch64-42-1.1.iso"
@@ -73,7 +73,7 @@ iso = {
             url = "https://download.fedoraproject.org/pub/fedora/linux/releases/42/Server/x86_64/iso/Fedora-Server-netinst-x86_64-42-1.1.iso"
             checksum = "231f3e0d1dc8f565c01a9f641b3d16c49cae44530074bc2047fe2373a721c82f"
         }
-    },    
+    },
     rhel8 = {
         aarch64 = {
             url = ""
@@ -96,7 +96,7 @@ iso = {
         i386 = {
             url = ""
             checksum = ""
-        }    
+        }
         x86_64 = {
             url = "./isos/rhel-9.6-x86_64-dvd.iso"
             checksum = "febcc1359fd68faceff82d7eed8d21016e022a17e9c74e0e3f9dc3a78816b2bb"
@@ -185,5 +185,5 @@ iso = {
             url = "https://releases.ubuntu.com/noble/ubuntu-24.04.3-live-server-amd64.iso"
             checksum = "c3514bf0056180d09376462a7a1b4f213c1d6e8ea67fae5c25099c6fd3d8274b"
         }
-    }                
+    }
 }
