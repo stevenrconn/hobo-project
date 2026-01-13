@@ -34,44 +34,30 @@ iso = {
     },
     debian-trixie = {
         aarch64 = {
-            url = "https://cdimage.debian.org/debian-cd/13.1.0/arm64/iso-cd/debian-13.1.0-arm64-netinst.iso"
-            checksum = "5c050c495770ee9b076261cb8025a99a4866a15a4e3cdab2f59c49e8f69fb0ee"
+            url = "https://cdimage.debian.org/debian-cd/13.3.0/arm64/iso-cd/debian-13.3.0-arm64-netinst.iso"
+            checksum = "10aa125ac1a74de9366ba624e71fb892fbc2e7863be85e966973f43d018698a6"
         }
         i386 = {
-            url = "https://cdimage.debian.org/debian-cd/13.1.0/i386/iso-cd/debian-13.1.0-i386-netinst.iso"
+            url = "https://cdimage.debian.org/debian-cd/13.3.0/i386/iso-cd/debian-13.3.0-i386-netinst.iso"
             checksum = "98c665957ce22ce189dcafcc5885781a5843810bb7e23df77a811e02b17380da"
         }
         x86_64 = {
-            url = "https://cdimage.debian.org/debian-cd/13.1.0/amd64/iso-cd/debian-13.1.0-amd64-netinst.iso"
-            checksum = "658b28e209b578fe788ec5867deebae57b6aac5fce3692bbb116bab9c65568b3"
+            url = "https://cdimage.debian.org/debian-cd/13.3.0/amd64/iso-cd/debian-13.3.0-amd64-netinst.iso"
+            checksum = "c9f09d24b7e834e6834f2ffa565b33d6f1f540d04bd25c79ad9953bc79a8ac02"
         }
     },
-    fedora41 = {
+    fedora43 = {
         aarch64 = {
-            url = "https://download.fedoraproject.org/pub/fedora/linux/releases/41/Server/aarch64/iso/Fedora-Server-netinst-aarch64-41-1.4.iso"
-            checksum = "9fff15b2be224e7f2f12defe7901eed0255c6611e4f87c6fb322081296801641"
+            url = "https://download.fedoraproject.org/pub/fedora/linux/releases/43/Everything/aarch64/iso/Fedora-Everything-netinst-aarch64-43-1.6.iso"
+            checksum = "169aa239a72029cf640bbbb3782673ba5ddfed002de4d84a0ab878feb1bdba9e"
         }
         i386 = {
             url = ""
             checksum = ""
         }
         x86_64 = {
-            url = "https://download.fedoraproject.org/pub/fedora/linux/releases/41/Server/x86_64/iso/Fedora-Server-netinst-x86_64-41-1.4.iso"
-            checksum = "630c52ba9e7a7f229b026e241ba74b9bc105e60ba5bf7b222693ae0e25f05c97"
-        }
-    },
-    fedora42 = {
-        aarch64 = {
-            url = "https://download.fedoraproject.org/pub/fedora/linux/releases/42/Server/aarch64/iso/Fedora-Server-netinst-aarch64-42-1.1.iso"
-            checksum = "cbeeb6d0147ce198e28895a9bbc91cd49a964f38177a57d512f73492308533ed"
-        }
-        i386 = {
-            url = ""
-            checksum = ""
-        }
-        x86_64 = {
-            url = "https://download.fedoraproject.org/pub/fedora/linux/releases/42/Server/x86_64/iso/Fedora-Server-netinst-x86_64-42-1.1.iso"
-            checksum = "231f3e0d1dc8f565c01a9f641b3d16c49cae44530074bc2047fe2373a721c82f"
+            url = "https://download.fedoraproject.org/pub/fedora/linux/releases/43/Everything/x86_64/iso/Fedora-Everything-netinst-x86_64-43-1.6.iso"
+            checksum = "f4d06a40ce4fb4a84705e1a1f01ca1328f95a2120d422ba5f719af5df62d0099"
         }
     },
     rhel8 = {
@@ -174,8 +160,8 @@ iso = {
     },
     ubuntu-noble = {
         aarch64 = {
-            url = "https://cdimage.ubuntu.com/releases/24.04/release/ubuntu-24.04-live-server-arm64.iso"
-            checksum = "d2d9986ada3864666e36a57634dfc97d17ad921fa44c56eeaca801e7dab08ad7"
+            url = "https://cdimage.ubuntu.com/releases/24.04/release/ubuntu-24.04.3-live-server-arm64.iso"
+            checksum = "2ee2163c9b901ff5926400e80759088ff3b879982a3956c02100495b489fd555"
         }
         i386 = {
             url = ""

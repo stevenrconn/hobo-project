@@ -1,24 +1,9 @@
 build {
-    sources = [ 
-        // Parallels sources
-        "source.parallels-iso.fedora42",
-        "source.parallels-iso.fedora42-minimal",
-        "source.parallels-iso.fedora41",
-        "source.parallels-iso.fedora41-minimal",
-        "source.parallels-iso.rockylinux9",
-        "source.parallels-iso.rockylinux9-minimal",
-        "source.parallels-iso.ubuntu-jammy",
-        "source.parallels-iso.ubuntu-noble",
-
-        // VirtualBox sources
+    sources = [
         "source.virtualbox-iso.debian-bullseye",
         "source.virtualbox-iso.debian-bookworm",
-        "source.virtualbox-iso.debian-bookworm-32",
         "source.virtualbox-iso.debian-trixie",
-        "source.virtualbox-iso.fedora42",
-        "source.virtualbox-iso.fedora42-minimal",
-        "source.virtualbox-iso.fedora41",
-        "source.virtualbox-iso.fedora41-minimal",
+        "source.virtualbox-iso.fedora43",
         "source.virtualbox-iso.rhel8-minimal",
         "source.virtualbox-iso.rhel9-minimal",
         "source.virtualbox-iso.rhel10-minimal",
@@ -36,15 +21,12 @@ build {
         execute_command = "sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
         expect_disconnect = true
         only = [
-            "parallels-iso.ubuntu-jammy",
-            "parallels-iso.ubuntu-noble",
             "virtualbox-iso.debian-bullseye",
-            "virtualbox-iso.debian-bookworm", 
-            "virtualbox-iso.debian-bookworm-32", 
+            "virtualbox-iso.debian-bookworm",
             "virtualbox-iso.debian-trixie",
             "virtualbox-iso.ubuntu-focal",
             "virtualbox-iso.ubuntu-jammy",
-            "virtualbox-iso.ubuntu-noble"      
+            "virtualbox-iso.ubuntu-noble"
         ]
         inline = [
             "set -o xtrace",
@@ -61,16 +43,8 @@ build {
         execute_command = "sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
         expect_disconnect = true
         only = [
-            "parallels-iso.fedora42",
-            "parallels-iso.fedora42-minimal",
-            "parallels-iso.fedora41",
-            "parallels-iso.fedora41-minimal",
-            "parallels-iso.rockylinux9",
-            "parallels-iso.rockylinux9-minimal",
             "virtualbox-iso.fedora42",
             "virtualbox-iso.fedora42-minimal",
-            "virtualbox-iso.fedora41",
-            "virtualbox-iso.fedora41-minimal",
             "virtualbox-iso.rockylinux8",
             "virtualbox-iso.rockylinux8-minimal",
             "virtualbox-iso.rockylinux9",
@@ -98,29 +72,10 @@ build {
         ]
     }
 
-    // Install Parallels Tools for non-minimal Parallels builds
-    provisioner "shell" {
-        only = [
-            "parallels-iso.fedora42",
-            "parallels-iso.fedora41",
-            "parallels-iso.rockylinux9",
-            "parallels-iso.ubuntu-jammy",
-            "parallels-iso.ubuntu-noble"
-        ]
-        execute_command = "sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
-        inline = [
-            "set -o xtrace",
-            "mount -o loop /home/vagrant/prl-tools.iso /mnt",
-            "/mnt/install --install-unattended",
-            "umount /mnt"
-        ]
-    }
-
     // Install VirtualBox Guest Additions prerequisites for Fedora/Rocky Linux
     provisioner "shell" {
         only = [
-            "virtualbox-iso.fedora42",
-            "virtualbox-iso.fedora41",
+            "virtualbox-iso.fedora43",
             "virtualbox-iso.rockylinux8",
             "virtualbox-iso.rockylinux9"
         ]
@@ -137,10 +92,8 @@ build {
         only = [
             "virtualbox-iso.debian-bullseye",
             "virtualbox-iso.debian-bookworm",
-            "virtualbox-iso.debian-bookworm-32",
             "virtualbox-iso.debian-trixie",
-            "virtualbox-iso.fedora42",
-            "virtualbox-iso.fedora41",
+            "virtualbox-iso.fedora43",
             "virtualbox-iso.rockylinux8",
             "virtualbox-iso.rockylinux9",
             "virtualbox-iso.ubuntu-focal",

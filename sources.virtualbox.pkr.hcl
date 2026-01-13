@@ -13,53 +13,36 @@ variable "vbox_nic_type" {
   default = "virtio"
 }
 
-
-source "virtualbox-iso" "debian-bullseye" {
-    guest_os_type    = "${local.arch == "aarch64" ? "Debian11_arm64" : "Debian11_64"}"
-    iso_url          = var.iso.debian-bullseye[local.arch].url
-    iso_checksum     = var.iso.debian-bullseye[local.arch].checksum
-    cpus             = var.box_cpus
-    memory           = var.box_memory
-    disk_size        = var.box_disk_size
-    nic_type         = "${var.vbox_nic_type}"
-    ssh_username     = "vagrant"
-    ssh_password     = "vagrant"
-    ssh_timeout      = "30m"
-    shutdown_command = "sudo -S systemctl poweroff"
-    http_directory   = "${path.root}"
-    boot_command     = [
-        "<esc><wait>",
-        "install vmlinuz<wait>",
-        " initrd=install/initrd.gz<wait>",
-        " auto-install/enable=true<wait>",
-        " debconf/priority=critical<wait>",
-        " preseed/url=http://${var.packer_httpip}:{{ .HTTPPort }}/preseed.cfg<wait>",
-        " -- <wait>",
-        "<enter><wait>"
-    ]
-    headless         = var.packer_headless
+variable "vbox_firmware" {
+  type = string
+  default = "efi"
 }
 
-source "virtualbox-iso" "debian-bookworm" {
-    guest_os_type    = "${local.arch == "aarch64" ? "Debian12_arm64" : "Debian12_64" }"
-    iso_url          = var.iso.debian-bookworm[local.arch].url
-    iso_checksum     = var.iso.debian-bookworm[local.arch].checksum
-    firmware         = "efi"
-    hard_drive_interface = "${var.vbox_hard_drive_interface}"
-    iso_interface    = "${var.vbox_iso_interface}"
-    vboxmanage       = [
-      [ "modifyvm", "{{ .Name }}", "--usbxhci", "on" ]
-    ]
-    cpus             = var.box_cpus
-    memory           = var.box_memory
-    disk_size        = var.box_disk_size
-    nic_type         = "${var.vbox_nic_type}"
-    ssh_username     = "vagrant"
-    ssh_password     = "vagrant"
-    ssh_timeout      = "30m"
-    shutdown_command = "sudo -S systemctl poweroff"
-    http_directory   = "${path.root}"
-    boot_command     = [
+variable "vbox_vbox_manage" {
+  type = list(list(string))
+  default =  [
+    [ "modifyvm", "{{ .Name }}", "--usbxhci", "on" ]
+  ]
+}
+
+source "virtualbox-iso" "debian-bullseye" {
+    guest_os_type         = "${local.arch == "aarch64" ? "Debian11_arm64" : "Debian11_64" }"
+    iso_url               = var.iso.debian-bullseye[local.arch].url
+    iso_checksum          = var.iso.debian-bullseye[local.arch].checksum
+    firmware              = "${var.vbox_firmware}"
+    hard_drive_interface  = "${var.vbox_hard_drive_interface}"
+    iso_interface         = "${var.vbox_iso_interface}"
+    nic_type              = "${var.vbox_nic_type}"
+    vboxmanage            = var.vbox_vbox_manage
+    cpus                  = var.box_cpus
+    memory                = var.box_memory
+    disk_size             = var.box_disk_size
+    ssh_username          = "vagrant"
+    ssh_password          = "vagrant"
+    ssh_timeout           = "30m"
+    shutdown_command      = "sudo -S systemctl poweroff"
+    http_directory        = "${path.root}"
+    boot_command          = [
         "e<wait>",
         "<down><down><down><end>",
         " auto=true",
@@ -67,139 +50,87 @@ source "virtualbox-iso" "debian-bookworm" {
         " url=http://${var.packer_httpip}:{{ .HTTPPort }}/preseed.cfg<wait>",
         "<f10>"
     ]
-    headless         = var.packer_headless
+    headless              = var.packer_headless
 }
 
-source "virtualbox-iso" "debian-bookworm-32" {
-    guest_os_type    = "Debian12"
-    iso_url          = "${var.iso.debian-bookworm.i386.url}"
-    iso_checksum     = "${var.iso.debian-bookworm.i386.checksum}"
-    cpus             = var.box_cpus
-    memory           = var.box_memory
-    disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}"
-    ssh_username     = "vagrant"
-    ssh_password     = "vagrant"
-    ssh_timeout      = "30m"
-    shutdown_command = "sudo -S systemctl poweroff"
-    http_directory   = "${path.root}"
-    boot_command     = [
-        "<esc><wait>",
-        "install vmlinuz<wait>",
-        " initrd=install/initrd.gz<wait>",
-        " auto-install/enable=true<wait>",
-        " debconf/priority=critical<wait>",
-        " preseed/url=http://${var.packer_httpip}:{{ .HTTPPort }}/preseed.cfg<wait>",
-        " -- <wait>",
-        "<enter><wait>"
+source "virtualbox-iso" "debian-bookworm" {
+    guest_os_type         = "${local.arch == "aarch64" ? "Debian12_arm64" : "Debian12_64" }"
+    iso_url               = var.iso.debian-bookworm[local.arch].url
+    iso_checksum          = var.iso.debian-bookworm[local.arch].checksum
+    firmware              = "${var.vbox_firmware}"
+    hard_drive_interface  = "${var.vbox_hard_drive_interface}"
+    iso_interface         = "${var.vbox_iso_interface}"
+    nic_type              = "${var.vbox_nic_type}"
+    vboxmanage            = var.vbox_vbox_manage
+    cpus                  = var.box_cpus
+    memory                = var.box_memory
+    disk_size             = var.box_disk_size
+    ssh_username          = "vagrant"
+    ssh_password          = "vagrant"
+    ssh_timeout           = "30m"
+    shutdown_command      = "sudo -S systemctl poweroff"
+    http_directory        = "${path.root}"
+    boot_command          = [
+        "e<wait>",
+        "<down><down><down><end>",
+        " auto=true",
+        " priority=critical",
+        " url=http://${var.packer_httpip}:{{ .HTTPPort }}/preseed.cfg<wait>",
+        "<f10>"
     ]
-    headless         = var.packer_headless
+    headless              = var.packer_headless
 }
 
 source "virtualbox-iso" "debian-trixie" {
-    guest_os_type    = "Linux_64"
-    iso_url          = "${var.iso.debian-trixie.x86_64.url}"
-    iso_checksum     = "${var.iso.debian-trixie.x86_64.checksum}"
-    cpus             = var.box_cpus
-    memory           = var.box_memory
-    disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}"
-    ssh_username     = "vagrant"
-    ssh_password     = "vagrant"
-    ssh_timeout      = "30m"
-    shutdown_command = "sudo -S systemctl poweroff"
-    http_directory   = "${path.root}"
-    boot_command     = [
-        "<esc><wait>",
-        "install vmlinuz<wait>",
-        " initrd=install/initrd.gz<wait>",
-        " auto-install/enable=true<wait>",
-        " debconf/priority=critical<wait>",
-        " preseed/url=http://${var.packer_httpip}:{{ .HTTPPort }}/preseed.cfg<wait>",
-        " -- <wait>",
-        "<enter><wait1m><enter>"
+    guest_os_type         = "${local.arch == "aarch64" ? "Debian13_arm64" : "Debian13_64" }"
+    iso_url               = var.iso.debian-trixie[local.arch].url
+    iso_checksum          = var.iso.debian-trixie[local.arch].checksum
+    firmware              = "${var.vbox_firmware}"
+    hard_drive_interface  = "${var.vbox_hard_drive_interface}"
+    iso_interface         = "${var.vbox_iso_interface}"
+    nic_type              = "${var.vbox_nic_type}"
+    vboxmanage            = var.vbox_vbox_manage
+    cpus                  = var.box_cpus
+    memory                = var.box_memory
+    disk_size             = var.box_disk_size
+    ssh_username          = "vagrant"
+    ssh_password          = "vagrant"
+    ssh_timeout           = "30m"
+    shutdown_command      = "sudo -S systemctl poweroff"
+    http_directory        = "${path.root}"
+    boot_command          = [
+        "e<wait>",
+        "<down><down><down><end>",
+        " auto=true",
+        " priority=critical",
+        " url=http://${var.packer_httpip}:{{ .HTTPPort }}/preseed.cfg<wait>",
+        "<f10><wait1m><enter>"
     ]
-    headless         = var.packer_headless
+    headless              = var.packer_headless
 }
 
-source "virtualbox-iso" "fedora42" {
-    guest_os_type    = "Fedora_64"
-    iso_url          = "${var.iso.fedora42.x86_64.url}"
-    iso_checksum     = "${var.iso.fedora42.x86_64.checksum}"
-    cpus             = var.box_cpus
-    memory           = var.box_memory
-    disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}"
-    ssh_username     = "vagrant"
-    ssh_password     = "vagrant"
-    ssh_timeout      = "30m"
-    shutdown_command = "sudo -S systemctl poweroff"
-    http_directory   = "${path.root}"
-    boot_command     = [
+source "virtualbox-iso" "fedora43" {
+    guest_os_type         = "${ local.arch == "aarch64" ? "Fedora_arm64" : "Fedora_64" }"
+    iso_url               = var.iso.fedora43[local.arch].url
+    iso_checksum          = var.iso.fedora43[local.arch].checksum
+    firmware              = "${var.vbox_firmware}"
+    hard_drive_interface  = "${var.vbox_hard_drive_interface}"
+    iso_interface         = "${var.vbox_iso_interface}"
+    nic_type              = "${var.vbox_nic_type}"
+    vboxmanage            = var.vbox_vbox_manage
+    cpus                  = var.box_cpus
+    memory                = var.box_memory
+    disk_size             = var.box_disk_size
+    ssh_username          = "vagrant"
+    ssh_password          = "vagrant"
+    ssh_timeout           = "30m"
+    shutdown_command      = "sudo -S systemctl poweroff"
+    http_directory        = "${path.root}"
+    boot_command          = [
         "<up>e<wait><down><down><end>",
         " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora.cfg<f10>"
     ]
-    headless         = var.packer_headless
-}
-
-source "virtualbox-iso" "fedora42-minimal" {
-    guest_os_type    = "Fedora_64"
-    iso_url          = "${var.iso.fedora42.x86_64.url}"
-    iso_checksum     = "${var.iso.fedora42.x86_64.checksum}"
-    cpus             = var.box_cpus
-    memory           = var.box_memory
-    disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}"
-    ssh_username     = "vagrant"
-    ssh_password     = "vagrant"
-    ssh_timeout      = "30m"
-    shutdown_command = "sudo -S systemctl poweroff"
-    http_directory   = "${path.root}"
-    boot_command     = [
-        "<up>e<wait><down><down><end>",
-        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora-minimal.cfg<f10>"
-    ]
-    headless         = var.packer_headless
-}
-
-source "virtualbox-iso" "fedora41" {
-    guest_os_type    = "Fedora_64"
-    iso_url          = "${var.iso.fedora41.x86_64.url}"
-    iso_checksum     = "${var.iso.fedora41.x86_64.checksum}"
-    cpus             = var.box_cpus
-    memory           = var.box_memory
-    disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}"
-    ssh_username     = "vagrant"
-    ssh_password     = "vagrant"
-    ssh_timeout      = "30m"
-    shutdown_command = "sudo -S systemctl poweroff"
-    http_directory   = "${path.root}"
-    boot_command     = [
-        "<up>e<wait><down><down><end>",
-        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora.cfg<f10>"
-    ]
-    headless         = var.packer_headless
-}
-
-source "virtualbox-iso" "fedora41-minimal" {
-    guest_os_type    = "Fedora_64"
-    iso_url          = "${var.iso.fedora41.x86_64.url}"
-    iso_checksum     = "${var.iso.fedora41.x86_64.checksum}"
-    cpus             = var.box_cpus
-    memory           = var.box_memory
-    disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}"
-    ssh_username     = "vagrant"
-    ssh_password     = "vagrant"
-    ssh_timeout      = "30m"
-    shutdown_command = "sudo -S systemctl poweroff"
-    http_directory   = "${path.root}"
-    boot_command     = [
-        "<up>e<wait><down><down><end>",
-        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-fedora-minimal.cfg<f10>"
-    ]
-    headless         = var.packer_headless
+    headless              = var.packer_headless
 }
 
 source "virtualbox-iso" "rhel8-minimal" {
@@ -408,25 +339,28 @@ source "virtualbox-iso" "ubuntu-jammy" {
 }
 
 source "virtualbox-iso" "ubuntu-noble" {
-    guest_os_type    = "Ubuntu24_LTS_64"
-    iso_url          = "${var.iso.ubuntu-noble.x86_64.url}"
-    iso_checksum     = "${var.iso.ubuntu-noble.x86_64.checksum}"
-    cpus             = var.box_cpus
-    memory           = var.box_memory
-    disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}"
-    ssh_username     = "vagrant"
-    ssh_password     = "vagrant"
-    ssh_timeout      = "30m"
-    shutdown_command = "sudo -S systemctl poweroff"
-    http_directory   = "${path.root}"
-    boot_wait        = "5s"
-    boot_command     = [
-        "c",
-        "linux /casper/vmlinuz --- autoinstall ds='nocloud-net;s=http://${var.packer_httpip}:{{ .HTTPPort }}/'",
-        "<enter><wait>",
-        "initrd /casper/initrd<enter><wait>",
-        "boot<enter>"
+    guest_os_type         = "${ local.arch == "aarch64" ? "Ubuntu24_LTS_arm64" : "Ubuntu24_LTS_64" }"
+    iso_url               = var.iso.ubuntu-noble[local.arch].url
+    iso_checksum          = var.iso.ubuntu-noble[local.arch].checksum
+    firmware              = "${var.vbox_firmware}"
+    hard_drive_interface  = "${var.vbox_hard_drive_interface}"
+    iso_interface         = "${var.vbox_iso_interface}"
+    nic_type              = "${var.vbox_nic_type}"
+    vboxmanage            = var.vbox_vbox_manage
+    cpus                  = var.box_cpus
+    memory                = var.box_memory
+    disk_size             = var.box_disk_size
+    ssh_username          = "vagrant"
+    ssh_password          = "vagrant"
+    ssh_timeout           = "30m"
+    shutdown_command      = "sudo -S systemctl poweroff"
+    http_directory        = "${path.root}"
+    boot_wait             = "15vags"
+    boot_command          = [
+        "e<wait>",
+        "<down><down><down><end><wait>",
+        " autoinstall ds='nocloud-net;s=http://${var.packer_httpip}:{{ .HTTPPort }}/'<wait>",
+        "<f10>"
     ]
-    headless         = var.packer_headless
+    headless              = var.packer_headless
 }
