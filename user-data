@@ -6,9 +6,6 @@ autoinstall:
     password: "$6$7Y4Ugp8/D6wTyxlg$NOwBaqD32mn5Ljvb/saZgIfdY72uARisI3Zm1x.4X2xmQBlXzUcWeLm5VryojX8.Qs5xB6asOIGkyFoXCSSRm1"
     username: vagrant
   locale: en_US.UTF-8
-  refresh-installer:
-    update: yes
-  updates: all
   ssh:
     install-server: yes
     allow-pw: yes
