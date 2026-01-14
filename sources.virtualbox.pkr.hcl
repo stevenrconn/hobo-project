@@ -288,54 +288,57 @@ source "virtualbox-iso" "rockylinux9-minimal" {
 }
 
 source "virtualbox-iso" "ubuntu-focal" {
-    guest_os_type    = "Ubuntu20_LTS_64"
-    iso_url          = "${var.iso.ubuntu-focal.x86_64.url}"
-    iso_checksum     = "${var.iso.ubuntu-focal.x86_64.checksum}"
-    cpus             = var.box_cpus
-    memory           = var.box_memory
-    disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}"
-    ssh_username     = "vagrant"
-    ssh_password     = "vagrant"
-    ssh_timeout      = "30m"
-    shutdown_command = "sudo -S systemctl poweroff"
-    http_directory   = "${path.root}"
-    boot_wait        = "5s"
-    boot_command     = [
-        "c<enter><f6><esc>",
-        "autoinstall ",
-        "<wait5>",
-        "ds=nocloud-net;",
-        "<wait5>",
-        "s=http://${var.packer_httpip}:{{ .HTTPPort }}/",
-        "<wait5>",
-        "<enter>"
+    guest_os_type         = "${ local.arch == "aarch64" ? "Linux_arm64" : "Ubuntu20_LTS_64" }"
+    iso_url               = var.iso.ubuntu-focal[local.arch].url
+    iso_checksum          = var.iso.ubuntu-focal[local.arch].checksum
+    cpus                  = var.box_cpus
+    memory                = var.box_memory
+    disk_size             = var.box_disk_size
+    firmware              = "${var.vbox_firmware}"
+    hard_drive_interface  = "${var.vbox_hard_drive_interface}"
+    iso_interface         = "${var.vbox_iso_interface}"
+    nic_type              = "${var.vbox_nic_type}"
+    vboxmanage            = var.vbox_vbox_manage
+    ssh_username          = "vagrant"
+    ssh_password          = "vagrant"
+    ssh_timeout           = "30m"
+    shutdown_command      = "sudo -S systemctl poweroff"
+    http_directory        = "${path.root}"
+    boot_wait             = "15s"
+    boot_command          = [
+      "e<wait>",
+      "<down><down><down><end><wait>",
+      " autoinstall ds='nocloud-net;s=http://${var.packer_httpip}:{{ .HTTPPort }}/'<wait>",
+      "<f10>"
     ]
-    headless         = var.packer_headless
+    headless              = var.packer_headless
 }
 
 source "virtualbox-iso" "ubuntu-jammy" {
-    guest_os_type    = "Ubuntu22_LTS_64"
-    iso_url          = "${var.iso.ubuntu-jammy.x86_64.url}"
-    iso_checksum     = "${var.iso.ubuntu-jammy.x86_64.checksum}"
-    cpus             = var.box_cpus
-    memory           = var.box_memory
-    disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}"
-    ssh_username     = "vagrant"
-    ssh_password     = "vagrant"
-    ssh_timeout      = "30m"
-    shutdown_command = "sudo -S systemctl poweroff"
-    http_directory   = "${path.root}"
-    boot_wait        = "5s"
-    boot_command     = [
-        "c",
-        "linux /casper/vmlinuz --- autoinstall ds='nocloud-net;s=http://${var.packer_httpip}:{{ .HTTPPort }}/'",
-        "<enter><wait>",
-        "initrd /casper/initrd<enter><wait>",
-        "boot<enter>"
+    guest_os_type         = "${ local.arch == "aarch64" ? "Ubuntu22_arm64" : "Ubuntu22_LTS_64" }"
+    iso_url               = var.iso.ubuntu-jammy[local.arch].url
+    iso_checksum          = var.iso.ubuntu-jammy[local.arch].checksum
+    cpus                  = var.box_cpus
+    memory                = var.box_memory
+    disk_size             = var.box_disk_size
+    firmware              = "${var.vbox_firmware}"
+    hard_drive_interface  = "${var.vbox_hard_drive_interface}"
+    iso_interface         = "${var.vbox_iso_interface}"
+    nic_type              = "${var.vbox_nic_type}"
+    vboxmanage            = var.vbox_vbox_manage
+    ssh_username          = "vagrant"
+    ssh_password          = "vagrant"
+    ssh_timeout           = "30m"
+    shutdown_command      = "sudo -S systemctl poweroff"
+    http_directory        = "${path.root}"
+    boot_wait             = "15s"
+    boot_command          = [
+      "e<wait>",
+      "<down><down><down><end><wait>",
+      " autoinstall ds='nocloud-net;s=http://${var.packer_httpip}:{{ .HTTPPort }}/'<wait>",
+      "<f10>"
     ]
-    headless         = var.packer_headless
+    headless              = var.packer_headless
 }
 
 source "virtualbox-iso" "ubuntu-noble" {
