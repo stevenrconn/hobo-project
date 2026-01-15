@@ -133,70 +133,56 @@ source "virtualbox-iso" "fedora43" {
     headless              = var.packer_headless
 }
 
-source "virtualbox-iso" "rhel8-minimal" {
-    guest_os_type    = "RedHat8_64"
-    iso_url          = "${var.iso.rhel8.x86_64.url}"
-    iso_checksum     = "${var.iso.rhel8.x86_64.checksum}"
-    cpus             = var.box_cpus
-    memory           = var.box_memory
-    disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}"
-    ssh_username     = "vagrant"
-    ssh_password     = "vagrant"
-    ssh_timeout      = "30m"
-    shutdown_command = "sudo -S systemctl poweroff"
-    http_directory   = "${path.root}"
-    boot_command     = [
-        "<up><tab>",
-        " fips=1",
-        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-rhel-minimal.cfg",
-        "<enter>"
-    ]
-    headless = var.packer_headless
-}
-
 source "virtualbox-iso" "rhel9-minimal" {
-    guest_os_type    = "RedHat9_64"
-    iso_url          = "${var.iso.rhel9.x86_64.url}"
-    iso_checksum     = "${var.iso.rhel9.x86_64.checksum}"
-    cpus             = var.box_cpus
-    memory           = var.box_memory
-    disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}"
-    ssh_username     = "vagrant"
-    ssh_password     = "vagrant"
-    ssh_timeout      = "30m"
-    shutdown_command = "sudo -S systemctl poweroff"
-    http_directory   = "${path.root}"
-    boot_command     = [
-        "<up><tab>",
-        " fips=1",
+    guest_os_type         = "${ local.arch == "aarch64" ? "RedHat9_arm64" : "RedHat9_64" }"
+    iso_url               = var.iso.rhel9[local.arch].url
+    iso_checksum          = var.iso.rhel9[local.arch].checksum
+    cpus                  = var.box_cpus
+    memory                = var.box_memory
+    disk_size             = var.box_disk_size
+    firmware              = "${var.vbox_firmware}"
+    hard_drive_interface  = "${var.vbox_hard_drive_interface}"
+    iso_interface         = "${var.vbox_iso_interface}"
+    nic_type              = "${var.vbox_nic_type}"
+    vboxmanage            = var.vbox_vbox_manage
+    ssh_username          = "vagrant"
+    ssh_password          = "vagrant"
+    ssh_timeout           = "30m"
+    shutdown_command      = "sudo -S systemctl poweroff"
+    http_directory        = "${path.root}"
+    boot_command          = [
+        "<up>e<down><down><end>",
+        local.fips ? " fips=1" : "",
         " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-rhel-minimal.cfg",
-        "<enter>"
+        "<f10>"
     ]
     headless = var.packer_headless
 }
 
 source "virtualbox-iso" "rhel10-minimal" {
-    guest_os_type    = "RedHat_64"
-    iso_url          = "${var.iso.rhel10.x86_64.url}"
-    iso_checksum     = "${var.iso.rhel10.x86_64.checksum}"
-    cpus             = var.box_cpus
-    memory           = var.box_memory
-    disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}"
-    ssh_username     = "vagrant"
-    ssh_password     = "vagrant"
-    ssh_timeout      = "30m"
-    shutdown_command = "sudo -S systemctl poweroff"
-    http_directory   = "${path.root}"
-    boot_command     = [
+    guest_os_type         = "${ local.arch == "aarch64" ? "RedHat10_arm64" : "RedHat10_64" }"
+    iso_url               = var.iso.rhel10[local.arch].url
+    iso_checksum          = var.iso.rhel10[local.arch].checksum
+    cpus                  = var.box_cpus
+    memory                = var.box_memory
+    disk_size             = var.box_disk_size
+    firmware              = "${var.vbox_firmware}"
+    hard_drive_interface  = "${var.vbox_hard_drive_interface}"
+    iso_interface         = "${var.vbox_iso_interface}"
+    nic_type              = "${var.vbox_nic_type}"
+    vboxmanage            = var.vbox_vbox_manage
+    ssh_username          = "vagrant"
+    ssh_password          = "vagrant"
+    ssh_timeout           = "30m"
+    shutdown_command      = "sudo -S systemctl poweroff"
+    http_directory        = "${path.root}"
+    boot_command          = [
         "<up>e<down><down><end>",
-        # " fips=1",
+        local.fips ? " fips=1" : "",
         " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-rhel-minimal.cfg",
         "<f10>"
     ]
-    headless = var.packer_headless
+    headless              = var.packer_headless
 }
 
 source "virtualbox-iso" "rockylinux8" {
@@ -358,7 +344,7 @@ source "virtualbox-iso" "ubuntu-noble" {
     ssh_timeout           = "30m"
     shutdown_command      = "sudo -S systemctl poweroff"
     http_directory        = "${path.root}"
-    boot_wait             = "15vags"
+    boot_wait             = "15s"
     boot_command          = [
         "e<wait>",
         "<down><down><down><end><wait>",

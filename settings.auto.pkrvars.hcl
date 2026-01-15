@@ -76,30 +76,30 @@ iso = {
     },
     rhel9 = {
         aarch64 = {
-            url = ""
-            checksum = ""
+            url = "./isos/rhel-9.7-aarch64-dvd.iso"
+            checksum = "bed73dd05ba11a55005e83794f6a081b454c622b38f2c4cb2b932b78982383fc"
         }
         i386 = {
             url = ""
             checksum = ""
         }
         x86_64 = {
-            url = "./isos/rhel-9.6-x86_64-dvd.iso"
+            url = "./isos/rhel-9.7-x86_64-dvd.iso"
             checksum = "febcc1359fd68faceff82d7eed8d21016e022a17e9c74e0e3f9dc3a78816b2bb"
         }
     },
     rhel10 = {
         aarch64 = {
-            url = ""
-            checksum = ""
+            url = "./isos/rhel-10.1-aarch64-dvd.iso"
+            checksum = "dd5bff91859992694781c0c2a023646516a533ad03c398f507d231141e456df6"
         }
         i386 = {
             url = ""
             checksum = ""
         }
         x86_64 = {
-            url = "./isos/rhel-10.0-x86_64-dvd.iso"
-            checksum = "edce2dd6f8e1d1b2ff0b204f89b0659bc9e320d175beb7caad60712957a19608"
+            url = "./isos/rhel-10.1-x86_64-dvd.iso"
+            checksum = "ecc0e9b760247f0ef43100d88ed930a3a8a868545d5db6ad940c5c73be6fb047"
         }
     },
     rockylinux8 = {
