@@ -1,4 +1,4 @@
 locals {
-  arch = var.box_arch
-  fips = false
+  arch = var.vbox_arch
+  fips_enabled = var.box_fips_enabled
 }

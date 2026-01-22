@@ -1,3 +1,8 @@
+variable "vbox_arch" {
+  type = string
+  default = "x86_64"
+}
+
 variable "vbox_hard_drive_interface" {
   type = string
   default = "virtio"
@@ -152,7 +157,7 @@ source "virtualbox-iso" "rhel9-minimal" {
     http_directory        = "${path.root}"
     boot_command          = [
         "<up>e<down><down><end>",
-        local.fips ? " fips=1" : "",
+        local.fips_enabled ? " fips=1" : "",
         " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-rhel-minimal.cfg",
         "<f10>"
     ]
@@ -178,7 +183,7 @@ source "virtualbox-iso" "rhel10-minimal" {
     http_directory        = "${path.root}"
     boot_command          = [
         "<up>e<down><down><end>",
-        local.fips ? " fips=1" : "",
+        local.fips_enabled ? " fips=1" : "",
         " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-rhel-minimal.cfg",
         "<f10>"
     ]
@@ -186,69 +191,81 @@ source "virtualbox-iso" "rhel10-minimal" {
 }
 
 source "virtualbox-iso" "rockylinux8" {
-    guest_os_type    = "RedHat8_64"
-    iso_url          = "${var.iso.rockylinux8.x86_64.url}"
-    iso_checksum     = "${var.iso.rockylinux8.x86_64.checksum}"
-    cpus             = var.box_cpus
-    memory           = var.box_memory
-    disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}"
-    ssh_username     = "vagrant"
-    ssh_password     = "vagrant"
-    ssh_timeout      = "30m"
-    shutdown_command = "sudo -S systemctl poweroff"
-    http_directory   = "${path.root}"
-    boot_command     = [
-        "<up><tab>",
-        " fips=1",
-        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-rockylinux8.x86_64.cfg",
-        "<enter>"
+    guest_os_type         = "${ local.arch == "aarch64" ? "RedHat8_arm64" : "RedHat8_64" }"
+    iso_url               = var.iso.rockylinux8[local.arch].url
+    iso_checksum          = var.iso.rockylinux8[local.arch].checksum
+    cpus                  = var.box_cpus
+    memory                = var.box_memory
+    disk_size             = var.box_disk_size
+    firmware              = "${var.vbox_firmware}"
+    hard_drive_interface  = "${var.vbox_hard_drive_interface}"
+    iso_interface         = "${var.vbox_iso_interface}"
+    nic_type              = "${var.vbox_nic_type}"
+    vboxmanage            = var.vbox_vbox_manage
+    ssh_username          = "vagrant"
+    ssh_password          = "vagrant"
+    ssh_timeout           = "30m"
+    shutdown_command      = "sudo -S systemctl poweroff"
+    http_directory        = "${path.root}"
+    boot_command          = [
+      "<up>e<down><down><end>",
+      local.fips_enabled ? " fips=1" : "",
+      " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-rockylinux8.${local.arch}.cfg",
+      "<f10>"
     ]
-    headless         = var.packer_headless
+    headless              = var.packer_headless
 }
 
 source "virtualbox-iso" "rockylinux8-minimal" {
-    guest_os_type    = "RedHat8_64"
-    iso_url          = "${var.iso.rockylinux8.x86_64.url}"
-    iso_checksum     = "${var.iso.rockylinux8.x86_64.checksum}"
-    cpus             = var.box_cpus
-    memory           = var.box_memory
-    disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}"
-    ssh_username     = "vagrant"
-    ssh_password     = "vagrant"
-    ssh_timeout      = "30m"
-    shutdown_command = "sudo -S systemctl poweroff"
-    http_directory   = "${path.root}"
-    boot_command     = [
-        "<up><tab>",
-        " fips=1",
-        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-rockylinux8-minimal.x86_64.cfg",
-        "<enter>"
+    guest_os_type         = "${ local.arch == "aarch64" ? "RedHat8_arm64" : "RedHat8_64" }"
+    iso_url               = var.iso.rockylinux8[local.arch].url
+    iso_checksum          = var.iso.rockylinux8[local.arch].checksum
+    cpus                  = var.box_cpus
+    memory                = var.box_memory
+    disk_size             = var.box_disk_size
+    firmware              = "${var.vbox_firmware}"
+    hard_drive_interface  = "${var.vbox_hard_drive_interface}"
+    iso_interface         = "${var.vbox_iso_interface}"
+    nic_type              = "${var.vbox_nic_type}"
+    vboxmanage            = var.vbox_vbox_manage
+    ssh_username          = "vagrant"
+    ssh_password          = "vagrant"
+    ssh_timeout           = "30m"
+    shutdown_command      = "sudo -S systemctl poweroff"
+    http_directory        = "${path.root}"
+    boot_command          = [
+      "<up>e<down><down><end>",
+      local.fips_enabled ? " fips=1" : "",
+      " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-rockylinux8-minimal.${local.arch}.cfg",
+      "<f10>"
     ]
-    headless         = var.packer_headless
+    headless              = var.packer_headless
 }
 
 source "virtualbox-iso" "rockylinux9" {
-    guest_os_type    = "RedHat9_64"
-    iso_url          = "${var.iso.rockylinux9.x86_64.url}"
-    iso_checksum     = "${var.iso.rockylinux9.x86_64.checksum}"
-    cpus             = var.box_cpus
-    memory           = var.box_memory
-    disk_size        = var.box_disk_size
-    nic_type         = "${var.box_nic_type}"
-    ssh_username     = "vagrant"
-    ssh_password     = "vagrant"
-    ssh_timeout      = "30m"
-    shutdown_command = "sudo -S systemctl poweroff"
-    http_directory   = "${path.root}"
-    boot_command     = [
-        "<up><tab>",
-        " fips=1",
-        " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-rockylinux9.x86_64.cfg",
-        "<enter>"
+    guest_os_type         = "${ local.arch == "aarch64" ? "RedHat9_arm64" : "RedHat9_64" }"
+    iso_url               = var.iso.rockylinux8[local.arch].url
+    iso_checksum          = var.iso.rockylinux8[local.arch].checksum
+    cpus                  = var.box_cpus
+    memory                = var.box_memory
+    disk_size             = var.box_disk_size
+    firmware              = "${var.vbox_firmware}"
+    hard_drive_interface  = "${var.vbox_hard_drive_interface}"
+    iso_interface         = "${var.vbox_iso_interface}"
+    nic_type              = "${var.vbox_nic_type}"
+    vboxmanage            = var.vbox_vbox_manage
+    ssh_username          = "vagrant"
+    ssh_password          = "vagrant"
+    ssh_timeout           = "30m"
+    shutdown_command      = "sudo -S systemctl poweroff"
+    http_directory        = "${path.root}"
+    boot_command          = [
+      "<up>e<down><down><end>",
+      local.fips_enabled ? " fips=1" : "",
+      " inst.ks=http://${var.packer_httpip}:{{ .HTTPPort }}/ks-rockylinux8.${local.arch}.cfg",
+      "<f10>"
     ]
-    headless = var.packer_headless
+    headless              = var.packer_headless
 }
 
 source "virtualbox-iso" "rockylinux9-minimal" {

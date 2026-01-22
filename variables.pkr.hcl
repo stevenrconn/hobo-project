@@ -31,8 +31,9 @@ variable "box_name_prefix" {
     type = string
 }
 
-variable "box_arch" {
-    type = string
+variable "box_fips_enabled" {
+    type = bool
+    default = false
 }
 
 variable "vagrant_ssh_pubkey" {
